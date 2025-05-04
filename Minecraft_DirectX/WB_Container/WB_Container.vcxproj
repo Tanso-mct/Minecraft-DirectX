@@ -142,6 +142,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\ImageDataContainer.cpp" />
+    <ClCompile Include="src\ModelDataContainer.cpp" />
     <ClCompile Include="src\MonitorContainer.cpp" />
     <ClCompile Include="src\SceneContextContainer.cpp" />
     <ClCompile Include="src\SoundDataContainer.cpp" />
@@ -150,6 +151,7 @@
   <ItemGroup>
     <ClInclude Include="include\config.h" />
     <ClInclude Include="include\ImageDataContainer.h" />
+    <ClInclude Include="include\ModelDataContainer.h" />
     <ClInclude Include="include\MonitorContainer.h" />
     <ClInclude Include="include\SceneContextContainer.h" />
     <ClInclude Include="include\SoundDataContainer.h" />

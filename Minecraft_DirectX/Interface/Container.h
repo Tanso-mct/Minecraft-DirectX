@@ -12,6 +12,7 @@ namespace WB
         Monitor,
         ImageData,
         SoundData,
+        ModelData,
     };
 
     class IContainer
@@ -94,6 +95,20 @@ namespace WB
         virtual std::unique_ptr<ISoundData>& Get(int index) = 0;
         virtual std::unique_ptr<ISoundData> Take(int index) = 0;
         virtual void Set(int index, std::unique_ptr<ISoundData> soundData) = 0;
+    };
+
+    class IModelData;
+
+    class IModelDataContainer : public IContainer
+    {
+    public:
+        virtual ~IModelDataContainer() = default;
+
+        virtual void Add(std::unique_ptr<IModelData> model) = 0;
+        virtual void Remove(int index) = 0;
+        virtual std::unique_ptr<IModelData>& Get(int index) = 0;
+        virtual std::unique_ptr<IModelData> Take(int index) = 0;
+        virtual void Set(int index, std::unique_ptr<IModelData> model) = 0;
     };
 
 } // namespace MCT
