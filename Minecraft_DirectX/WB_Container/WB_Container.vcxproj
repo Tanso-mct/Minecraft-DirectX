@@ -144,6 +144,7 @@
     <ClCompile Include="src\ImageDataContainer.cpp" />
     <ClCompile Include="src\MonitorContainer.cpp" />
     <ClCompile Include="src\SceneContextContainer.cpp" />
+    <ClCompile Include="src\SoundDataContainer.cpp" />
     <ClCompile Include="src\WindowContextContainer.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -151,6 +152,7 @@
     <ClInclude Include="include\ImageDataContainer.h" />
     <ClInclude Include="include\MonitorContainer.h" />
     <ClInclude Include="include\SceneContextContainer.h" />
+    <ClInclude Include="include\SoundDataContainer.h" />
     <ClInclude Include="include\WindowContextContainer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

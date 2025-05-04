@@ -11,6 +11,7 @@ namespace WB
         SceneContext,
         Monitor,
         ImageData,
+        SoundData,
     };
 
     class IContainer
@@ -79,6 +80,20 @@ namespace WB
         virtual std::unique_ptr<IImageData>& Get(int index) = 0;
         virtual std::unique_ptr<IImageData> Take(int index) = 0;
         virtual void Set(int index, std::unique_ptr<IImageData> imageData) = 0;
+    };
+
+    class ISoundData;
+
+    class ISoundDataContainer : public IContainer
+    {
+    public:
+        virtual ~ISoundDataContainer() = default;
+
+        virtual void Add(std::unique_ptr<ISoundData> soundData) = 0;
+        virtual void Remove(int index) = 0;
+        virtual std::unique_ptr<ISoundData>& Get(int index) = 0;
+        virtual std::unique_ptr<ISoundData> Take(int index) = 0;
+        virtual void Set(int index, std::unique_ptr<ISoundData> soundData) = 0;
     };
 
 } // namespace MCT
