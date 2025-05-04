@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-namespace MCT
+namespace WB
 {
     class IWindowContext
     {

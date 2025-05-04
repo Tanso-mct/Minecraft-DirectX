@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "Container/include/config.h"
+#include "WB_Container/include/config.h"
 
 #include "Interface/Container.h"
 #include "Interface/WindowContext.h"
@@ -8,7 +8,7 @@
 #include <vector>
 #include <memory>
 
-namespace MCT
+namespace WB
 {
     class CONTAINER_API WindowContextContainer : public IWindowContextContainer
     {
