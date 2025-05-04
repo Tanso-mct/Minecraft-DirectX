@@ -2,9 +2,10 @@
 
 #include <iostream>
 
-void WB::ConsoleLog::Init(const ConsoleLogConfig &config)
+WB::ConsoleLog::ConsoleLog(const ConsoleLogConfig &config)
+: _config(config)
 {
-    _config = config;
+
 }
 
 const std::string &WB::ConsoleLog::GetName() const
@@ -12,8 +13,15 @@ const std::string &WB::ConsoleLog::GetName() const
     return _config.name;
 }
 
+void WB::ConsoleLog::SetIsEnabled(bool isEnabled)
+{
+    _isEnabled = isEnabled;
+}
+
 void WB::ConsoleLog::Log(const std::initializer_list<const char*> &messages) const
 {
+    if (!_isEnabled) return; // If logging is disabled, do nothing
+
     std::cout << _config.normalColor;
     for (const auto &message : messages)
     {
@@ -23,6 +31,8 @@ void WB::ConsoleLog::Log(const std::initializer_list<const char*> &messages) con
 
 void WB::ConsoleLog::LogWrn(const std::initializer_list<const char*> &messages) const
 {
+    if (!_isEnabled) return; // If logging is disabled, do nothing
+
     std::cout << _config.wrnColor;
     for (const auto &message : messages)
     {

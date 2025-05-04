@@ -11,8 +11,7 @@ TEST(ConsoleLog, Create)
     config.errColor = "\033[31m"; // Red color
     config.wrnColor = "\033[33m"; // Yellow color
 
-    WB::ConsoleLog consoleLog;
-    consoleLog.Init(config);
+    WB::ConsoleLog consoleLog(config);
 }
 
 TEST(ConsoleLog, Log)
@@ -23,8 +22,7 @@ TEST(ConsoleLog, Log)
     config.errColor = "\033[31m"; // Red color
     config.wrnColor = "\033[33m"; // Yellow color
 
-    WB::ConsoleLog consoleLog;
-    consoleLog.Init(config);
+    WB::ConsoleLog consoleLog(config);
 
     consoleLog.Log({"Hello", "World"});
     consoleLog.LogWrn({"Warning", "Message"});
@@ -44,4 +42,21 @@ TEST(ConsoleLog, Log)
     );
 
     // throw std::runtime_error(errMsg); // This will cause the test to fail
+}
+
+TEST(ConsoleLog, SetIsEnabled)
+{
+    WB::ConsoleLogConfig config;
+    config.name = "Test"; // Name of the console log
+    config.normalColor = "\033[0m"; // Normal color
+    config.errColor = "\033[31m"; // Red color
+    config.wrnColor = "\033[33m"; // Yellow color
+
+    WB::ConsoleLog consoleLog(config);
+
+    consoleLog.SetIsEnabled(false);
+    consoleLog.Log({"This should not be logged"}); // This should not log anything
+
+    consoleLog.SetIsEnabled(true);
+    consoleLog.Log({"This should be logged"}); // This should log the message
 }
