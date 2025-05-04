@@ -13,6 +13,7 @@ namespace WB
         ImageData,
         SoundData,
         ModelData,
+        JsonData,
     };
 
     class IContainer
@@ -109,6 +110,20 @@ namespace WB
         virtual std::unique_ptr<IModelData>& Get(int index) = 0;
         virtual std::unique_ptr<IModelData> Take(int index) = 0;
         virtual void Set(int index, std::unique_ptr<IModelData> model) = 0;
+    };
+
+    class IJsonData;
+
+    class IJsonDataContainer : public IContainer
+    {
+    public:
+        virtual ~IJsonDataContainer() = default;
+
+        virtual void Add(std::unique_ptr<IJsonData> jsonData) = 0;
+        virtual void Remove(int index) = 0;
+        virtual std::unique_ptr<IJsonData>& Get(int index) = 0;
+        virtual std::unique_ptr<IJsonData> Take(int index) = 0;
+        virtual void Set(int index, std::unique_ptr<IJsonData> jsonData) = 0;
     };
 
 } // namespace MCT

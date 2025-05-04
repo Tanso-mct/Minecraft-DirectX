@@ -110,6 +110,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ImageDataContainer_Test.cpp" />
+    <ClCompile Include="JsonDataContainer_Test.cpp" />
     <ClCompile Include="ModelDataContainer_Test.cpp" />
     <ClCompile Include="MonitorContainer_Test.cpp" />
     <ClCompile Include="SceneContextContainer_Test.cpp" />
