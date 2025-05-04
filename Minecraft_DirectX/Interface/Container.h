@@ -8,6 +8,7 @@ namespace WB
     {
         Unknown = -1,
         WindowContext,
+        SceneContext,
     };
 
     class IContainer
@@ -34,6 +35,20 @@ namespace WB
         virtual std::unique_ptr<IWindowContext>& Get(int index) = 0;
         virtual std::unique_ptr<IWindowContext> Take(int index) = 0;
         virtual void Set(int index, std::unique_ptr<IWindowContext> windowContext) = 0;
+    };
+
+    class ISceneContext;
+
+    class ISceneContextContainer : public IContainer
+    {
+    public:
+        virtual ~ISceneContextContainer() = default;
+
+        virtual void Add(std::unique_ptr<ISceneContext> sceneContext) = 0;
+        virtual void Remove(int index) = 0;
+        virtual std::unique_ptr<ISceneContext>& Get(int index) = 0;
+        virtual std::unique_ptr<ISceneContext> Take(int index) = 0;
+        virtual void Set(int index, std::unique_ptr<ISceneContext> sceneContext) = 0;
     };
 
 } // namespace MCT
