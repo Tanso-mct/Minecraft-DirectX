@@ -141,11 +141,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\MonitorContainer.cpp" />
     <ClCompile Include="src\SceneContextContainer.cpp" />
     <ClCompile Include="src\WindowContextContainer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\config.h" />
+    <ClInclude Include="include\MonitorContainer.h" />
     <ClInclude Include="include\SceneContextContainer.h" />
     <ClInclude Include="include\WindowContextContainer.h" />
   </ItemGroup>
