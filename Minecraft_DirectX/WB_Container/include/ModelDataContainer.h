@@ -13,7 +13,7 @@ namespace WB
     class CONTAINER_API ModelDataContainer : public IModelDataContainer
     {
     private:
-        std::vector<std::unique_ptr<IModelData>> _models;
+        std::vector<std::unique_ptr<IModelData>> _modelDatas;
         std::unique_ptr<IModelData> _empty = nullptr; // Dummy used when returning references
 
     public:
@@ -22,8 +22,8 @@ namespace WB
          * Container has unique_ptr objects, so it is not copyable or assignable.
         /**************************************************************************************************************/
 
-        ModelDataContainer() = default;
-        ~ModelDataContainer() override = default;
+        ModelDataContainer();
+        ~ModelDataContainer() override;
 
         ModelDataContainer(const ModelDataContainer&) = delete;
         ModelDataContainer& operator=(const ModelDataContainer&) = delete;

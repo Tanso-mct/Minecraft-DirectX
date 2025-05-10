@@ -22,8 +22,8 @@ namespace WB
          * Container has unique_ptr objects, so it is not copyable or assignable.
         /**************************************************************************************************************/
 
-        SceneContextContainer() = default;
-        ~SceneContextContainer() override = default;
+        SceneContextContainer();
+        ~SceneContextContainer() override;
 
         SceneContextContainer(const SceneContextContainer&) = delete;
         SceneContextContainer& operator=(const SceneContextContainer&) = delete;

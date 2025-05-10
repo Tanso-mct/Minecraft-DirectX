@@ -22,8 +22,8 @@ namespace WB
          * Container has unique_ptr objects, so it is not copyable or assignable.
         /**************************************************************************************************************/
 
-        ImageDataContainer() = default;
-        ~ImageDataContainer() override = default;
+        ImageDataContainer();
+        ~ImageDataContainer() override;
 
         ImageDataContainer(const ImageDataContainer&) = delete;
         ImageDataContainer& operator=(const ImageDataContainer&) = delete;
