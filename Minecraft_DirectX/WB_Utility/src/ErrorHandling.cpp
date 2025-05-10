@@ -1,6 +1,7 @@
 ﻿#include "WB_Utility/include/ErrorHandling.h"
 
 #include <windows.h>
+#include <cstdlib>
 
 UTILITY_API void WB::MessageBoxError(const std::string &title, const std::string &message)
 {
@@ -11,4 +12,6 @@ UTILITY_API void WB::MessageBoxError(const std::string &title, const std::string
         title.c_str(),
         MB_OK | MB_ICONERROR | MB_TASKMODAL | MB_SETFOREGROUND | MB_TOPMOST
     );
+
+    exit(1);
 }

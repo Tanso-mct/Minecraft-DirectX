@@ -22,8 +22,8 @@ namespace WB
          * Container has unique_ptr objects, so it is not copyable or assignable.
         /**************************************************************************************************************/
 
-        JsonDataContainer() = default;
-        ~JsonDataContainer() override = default;
+        JsonDataContainer();
+        ~JsonDataContainer() override;
 
         JsonDataContainer(const JsonDataContainer&) = delete;
         JsonDataContainer& operator=(const JsonDataContainer&) = delete;

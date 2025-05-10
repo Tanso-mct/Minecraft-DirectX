@@ -22,8 +22,8 @@ namespace WB
          * Container has unique_ptr objects, so it is not copyable or assignable.
         /**************************************************************************************************************/
 
-        WindowContextContainer() = default;
-        ~WindowContextContainer() override = default;
+        WindowContextContainer();
+        ~WindowContextContainer() override;
 
         WindowContextContainer(const WindowContextContainer&) = delete;
         WindowContextContainer& operator=(const WindowContextContainer&) = delete;

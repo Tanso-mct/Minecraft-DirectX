@@ -143,6 +143,7 @@
   <ItemGroup>
     <ClCompile Include="src\ImageDataContainer.cpp" />
     <ClCompile Include="src\JsonDataContainer.cpp" />
+    <ClCompile Include="src\Log.cpp" />
     <ClCompile Include="src\ModelDataContainer.cpp" />
     <ClCompile Include="src\MonitorContainer.cpp" />
     <ClCompile Include="src\SceneContextContainer.cpp" />
@@ -153,11 +154,20 @@
     <ClInclude Include="include\config.h" />
     <ClInclude Include="include\ImageDataContainer.h" />
     <ClInclude Include="include\JsonDataContainer.h" />
+    <ClInclude Include="include\Log.h" />
     <ClInclude Include="include\ModelDataContainer.h" />
     <ClInclude Include="include\MonitorContainer.h" />
     <ClInclude Include="include\SceneContextContainer.h" />
     <ClInclude Include="include\SoundDataContainer.h" />
     <ClInclude Include="include\WindowContextContainer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WB_ConsoleLog\WB_ConsoleLog.vcxproj">
+      <Project>{9ba0057d-882b-4fa4-9549-b1aa792c89a9}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\WB_Utility\WB_Utility.vcxproj">
+      <Project>{4522c49b-2df0-4603-b9d6-a3a995d04770}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

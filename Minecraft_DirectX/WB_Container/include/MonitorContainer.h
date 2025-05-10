@@ -22,8 +22,8 @@ namespace WB
          * Container has unique_ptr objects, so it is not copyable or assignable.
         /**************************************************************************************************************/
 
-        MonitorContainer() = default;
-        ~MonitorContainer() override = default;
+        MonitorContainer();
+        ~MonitorContainer() override;
 
         MonitorContainer(const MonitorContainer&) = delete;
         MonitorContainer& operator=(const MonitorContainer&) = delete;

@@ -22,8 +22,8 @@ namespace WB
          * Container has unique_ptr objects, so it is not copyable or assignable.
         /**************************************************************************************************************/
 
-        SoundDataContainer() = default;
-        ~SoundDataContainer() override = default;
+        SoundDataContainer();
+        ~SoundDataContainer() override;
 
         SoundDataContainer(const SoundDataContainer&) = delete;
         SoundDataContainer& operator=(const SoundDataContainer&) = delete;
