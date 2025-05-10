@@ -24,8 +24,10 @@ TEST(ConsoleLog, Log)
 
     WB::ConsoleLog consoleLog(config);
 
+#ifndef NDEBUG
     consoleLog.Log({"Hello", "World"});
     consoleLog.LogWrn({"Warning", "Message"});
+#endif
 
     std::string errMsg = consoleLog.LogErr
     (
@@ -54,9 +56,11 @@ TEST(ConsoleLog, SetIsEnabled)
 
     WB::ConsoleLog consoleLog(config);
 
+#ifndef NDEBUG
     consoleLog.SetIsEnabled(false);
     consoleLog.Log({"This should not be logged"}); // This should not log anything
 
     consoleLog.SetIsEnabled(true);
     consoleLog.Log({"This should be logged"}); // This should log the message
+#endif
 }
