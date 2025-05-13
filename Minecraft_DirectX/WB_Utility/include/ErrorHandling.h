@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "WB_Utility/include/config.h"
+#include "WB_Utility/include/Config.h"
 
 #include <string>
 

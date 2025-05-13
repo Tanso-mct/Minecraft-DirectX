@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "WB_Container/include/config.h"
+#include "WB_Container/include/Config.h"
 
 #include "Interface/Container.h"
 #include "Interface/SoundData.h"

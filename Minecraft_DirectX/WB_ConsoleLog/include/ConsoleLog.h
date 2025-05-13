@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "WB_ConsoleLog/include/config.h"
+#include "WB_ConsoleLog/include/Config.h"
 
 #include "Interface/ConsoleLog.h"
 

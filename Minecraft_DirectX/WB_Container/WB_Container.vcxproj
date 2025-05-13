@@ -151,7 +151,7 @@
     <ClCompile Include="src\WindowContextContainer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\config.h" />
+    <ClInclude Include="include\Config.h" />
     <ClInclude Include="include\ImageDataContainer.h" />
     <ClInclude Include="include\JsonDataContainer.h" />
     <ClInclude Include="include\Log.h" />

@@ -144,7 +144,7 @@
     <ClCompile Include="src\ErrorHandling.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\config.h" />
+    <ClInclude Include="include\Config.h" />
     <ClInclude Include="include\DataCast.h" />
     <ClInclude Include="include\ErrorHandling.h" />
   </ItemGroup>

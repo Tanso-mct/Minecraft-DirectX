@@ -144,7 +144,7 @@
     <ClCompile Include="src\ConsoleLog.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\config.h" />
+    <ClInclude Include="include\Config.h" />
     <ClInclude Include="include\ConsoleLog.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
