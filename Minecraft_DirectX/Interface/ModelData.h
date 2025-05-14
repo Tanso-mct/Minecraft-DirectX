@@ -1,8 +1,10 @@
 ﻿#pragma once
 
+#include "Interface/Container.h"
+
 namespace WB
 {
-    class IModelData
+    class IModelData : public IElement
     {
     public:
         virtual ~IModelData() = default;

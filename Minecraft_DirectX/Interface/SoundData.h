@@ -1,8 +1,10 @@
 ﻿#pragma once
 
+#include "Interface/Container.h"
+
 namespace WB
 {
-    class ISoundData
+    class ISoundData : public IElement
     {
     public:
         virtual ~ISoundData() = default;
