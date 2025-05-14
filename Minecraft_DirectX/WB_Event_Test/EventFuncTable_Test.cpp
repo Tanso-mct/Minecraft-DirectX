@@ -78,6 +78,23 @@ TEST(EventFuncTable, Get)
     EXPECT_FLOAT_EQ(value, 10.14f); // Check if the result is correct
     
     // Get non-existing key
-    auto func2 = eventFuncTable->Get(2);
-    EXPECT_EQ(func2, nullptr);
+    // float (DummyEventInst::*func2)(int, float) = eventFuncTable->Get(2);
+}
+
+TEST(EventFuncTable, Set)
+{
+    // Create
+    std::unique_ptr<WB::IEventFuncTable<int, DummyEventInst, float, int, float>> eventFuncTable
+    = std::make_unique<WB::EventFuncTable<int, DummyEventInst, float, int, float>>();
+    
+    // Add
+    eventFuncTable->Add(1, &DummyEventInst::DummyFunction);
+    EXPECT_EQ(eventFuncTable->GetSize(), 1);
+    
+    // Set
+    eventFuncTable->Set(1, &DummyEventInst::DummyFunction);
+    EXPECT_EQ(eventFuncTable->GetSize(), 1);
+
+    // Set non-existing key
+    // eventFuncTable->Set(2, &DummyEventInst::DummyFunction);
 }

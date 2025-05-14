@@ -1,10 +1,4 @@
-﻿
-
-
-
-
-
-#pragma once
+﻿#pragma once
 
 #define BUILDING_CONSOLE_LOG_DLL
 #ifdef BUILDING_CONSOLE_LOG_DLL
