@@ -48,7 +48,7 @@ size_t WB::Container::GetSize() const
     return _datas.size();
 }
 
-size_t WB::Container::Add(std::unique_ptr<WB::IContainable> windowContext)
+size_t WB::Container::Add(std::unique_ptr<WB::IElement> windowContext)
 {
     _datas.push_back(std::move(windowContext));
 
@@ -80,7 +80,7 @@ void WB::Container::Remove(int index)
 #endif
 }
 
-std::unique_ptr<WB::IContainable> &WB::Container::Get(int index)
+std::unique_ptr<WB::IElement> &WB::Container::Get(int index)
 {
     if (index < 0 || index >= static_cast<int>(_datas.size()))
     {
@@ -101,7 +101,7 @@ std::unique_ptr<WB::IContainable> &WB::Container::Get(int index)
     return _datas[index]; // Return the unique_ptr reference
 }
 
-std::unique_ptr<WB::IContainable> WB::Container::Take(int index)
+std::unique_ptr<WB::IElement> WB::Container::Take(int index)
 {
     if (index < 0 || index >= static_cast<int>(_datas.size()))
     {
@@ -122,7 +122,7 @@ std::unique_ptr<WB::IContainable> WB::Container::Take(int index)
     return std::move(_datas[index]); // Move the unique_ptr to the caller
 }
 
-void WB::Container::Set(int index, std::unique_ptr<WB::IContainable> windowContext)
+void WB::Container::Set(int index, std::unique_ptr<WB::IElement> windowContext)
 {
     if (index < 0 || index >= static_cast<int>(_datas.size()))
     {

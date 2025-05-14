@@ -1,8 +1,10 @@
 ﻿#pragma once
 
+#include "Interface/Container.h"
+
 namespace WB
 {
-    class IImageData
+    class IImageData : public IElement
     {
     public:
         virtual ~IImageData() = default;

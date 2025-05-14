@@ -9,11 +9,11 @@
 
 namespace WB
 {
-    class CONTAINER_API Container : public IContainer
+    class CONTAINER_API Container : public IContainer, public IElement
     {
     private:
-        std::vector<std::unique_ptr<IContainable>> _datas;
-        std::unique_ptr<IContainable> _empty = nullptr; // Dummy used when returning references
+        std::vector<std::unique_ptr<IElement>> _datas;
+        std::unique_ptr<IElement> _empty = nullptr; // Dummy used when returning references
 
     public:
         /***************************************************************************************************************
@@ -35,11 +35,11 @@ namespace WB
         void Clear() override;
         size_t GetSize() const override;
 
-        size_t Add(std::unique_ptr<IContainable> data) override;
+        size_t Add(std::unique_ptr<IElement> data) override;
         void Remove(int index) override;
-        std::unique_ptr<IContainable>& Get(int index) override;
-        std::unique_ptr<IContainable> Take(int index) override;
-        void Set(int index, std::unique_ptr<IContainable> data) override;
+        std::unique_ptr<IElement>& Get(int index) override;
+        std::unique_ptr<IElement> Take(int index) override;
+        void Set(int index, std::unique_ptr<IElement> data) override;
     };
 
 } // namespace WB

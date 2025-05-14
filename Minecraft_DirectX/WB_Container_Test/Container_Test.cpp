@@ -1,9 +1,9 @@
-#include "pch.h"
+﻿#include "pch.h"
 
 #include "WB_Container/include/Container.h"
 #pragma comment(lib, "WB_Container.lib");
 
-class MockData : public WB::IContainable
+class MockData : public WB::IElement
 {
 public:
     MockData() = default;
@@ -50,7 +50,7 @@ TEST(Container, Get)
     std::unique_ptr<WB::IContainer> container = std::make_unique<WB::Container>();
 
     container->Add(nullptr);
-    std::unique_ptr<WB::IContainable> &context = container->Get(0);
+    std::unique_ptr<WB::IElement> &context = container->Get(0);
 }
 
 TEST(Container, Take)
@@ -58,7 +58,7 @@ TEST(Container, Take)
     std::unique_ptr<WB::IContainer> container = std::make_unique<WB::Container>();
 
     container->Add(nullptr);
-    std::unique_ptr<WB::IContainable> context = container->Take(0);
+    std::unique_ptr<WB::IElement> context = container->Take(0);
 }
 
 TEST(Container, Set)
