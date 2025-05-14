@@ -4,16 +4,10 @@
 
 namespace WB
 {
-    enum class ContainerType : int
+    class IContainable
     {
-        Unknown = -1,
-        WindowContext,
-        SceneContext,
-        Monitor,
-        ImageData,
-        SoundData,
-        ModelData,
-        JsonData,
+    public:
+        virtual ~IContainable() = default;
     };
 
     class IContainer
@@ -24,6 +18,12 @@ namespace WB
         virtual void Create(unsigned int size) = 0;
         virtual void Clear() = 0;
         virtual size_t GetSize() const = 0;
+
+        virtual size_t Add(std::unique_ptr<IContainable> data) = 0;
+        virtual void Remove(int index) = 0;
+        virtual std::unique_ptr<IContainable>& Get(int index) = 0;
+        virtual std::unique_ptr<IContainable> Take(int index) = 0;
+        virtual void Set(int index, std::unique_ptr<IContainable> data) = 0;
     };
 
     // class IWindowContext;

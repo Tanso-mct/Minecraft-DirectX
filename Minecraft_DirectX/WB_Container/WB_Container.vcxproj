@@ -141,25 +141,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\ImageDataContainer.cpp" />
-    <ClCompile Include="src\JsonDataContainer.cpp" />
+    <ClCompile Include="src\Container.cpp" />
     <ClCompile Include="src\Log.cpp" />
-    <ClCompile Include="src\ModelDataContainer.cpp" />
-    <ClCompile Include="src\MonitorContainer.cpp" />
-    <ClCompile Include="src\SceneContextContainer.cpp" />
-    <ClCompile Include="src\SoundDataContainer.cpp" />
-    <ClCompile Include="src\WindowContextContainer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Config.h" />
-    <ClInclude Include="include\ImageDataContainer.h" />
-    <ClInclude Include="include\JsonDataContainer.h" />
+    <ClInclude Include="include\Container.h" />
     <ClInclude Include="include\Log.h" />
-    <ClInclude Include="include\ModelDataContainer.h" />
-    <ClInclude Include="include\MonitorContainer.h" />
-    <ClInclude Include="include\SceneContextContainer.h" />
-    <ClInclude Include="include\SoundDataContainer.h" />
-    <ClInclude Include="include\WindowContextContainer.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WB_ConsoleLog\WB_ConsoleLog.vcxproj">

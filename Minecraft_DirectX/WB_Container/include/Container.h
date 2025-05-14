@@ -1,22 +1,19 @@
 ﻿#pragma once
 
 #include "WB_Container/include/Config.h"
-#include "Interface/Container.h"
 
-#include "WB_Container/include/Log.h"
-#include "WB_Utility/include/ErrorHandling.h"
+#include "Interface/Container.h"
 
 #include <vector>
 #include <memory>
 
 namespace WB
 {
-    template<typename DATA>
-    class Container : public IContainer
+    class CONTAINER_API Container : public IContainer
     {
     private:
-        std::vector<std::unique_ptr<DATA>> _data;
-        std::unique_ptr<DATA> _empty = nullptr; // Dummy used when returning references
+        std::vector<std::unique_ptr<IContainable>> _datas;
+        std::unique_ptr<IContainable> _empty = nullptr; // Dummy used when returning references
 
     public:
         /***************************************************************************************************************
@@ -24,8 +21,8 @@ namespace WB
          * Container has unique_ptr objects, so it is not copyable or assignable.
         /**************************************************************************************************************/
 
-        Container() = default;
-        ~Container() override = default;
+        Container();
+        ~Container() override;
 
         Container(const Container&) = delete;
         Container& operator=(const Container&) = delete;
@@ -34,30 +31,15 @@ namespace WB
          * IContainer interface implementation
         /**************************************************************************************************************/
 
-        void Create(unsigned int size) override
-        {
-            _data.resize(size);
-        }
+        void Create(unsigned int) override;
+        void Clear() override;
+        size_t GetSize() const override;
 
-        void Clear() override
-        {
-            _data.clear();
-        }
-
-        size_t GetSize() const override
-        {
-            return _data.size();
-        }
-
-        /***************************************************************************************************************
-         * Container implementation
-        /**************************************************************************************************************/
-
-        int Add(std::unique_ptr<DATA> data)
-        {
-            _data.push_back(std::move(data));
-            return static_cast<int>(_data.size() - 1);
-        }
+        size_t Add(std::unique_ptr<IContainable> data) override;
+        void Remove(int index) override;
+        std::unique_ptr<IContainable>& Get(int index) override;
+        std::unique_ptr<IContainable> Take(int index) override;
+        void Set(int index, std::unique_ptr<IContainable> data) override;
     };
 
 } // namespace WB

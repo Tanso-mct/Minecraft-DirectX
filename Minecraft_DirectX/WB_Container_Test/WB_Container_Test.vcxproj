@@ -109,13 +109,7 @@
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ImageDataContainer_Test.cpp" />
-    <ClCompile Include="JsonDataContainer_Test.cpp" />
-    <ClCompile Include="ModelDataContainer_Test.cpp" />
-    <ClCompile Include="MonitorContainer_Test.cpp" />
-    <ClCompile Include="SceneContextContainer_Test.cpp" />
-    <ClCompile Include="SoundDataContainer_Test.cpp" />
-    <ClCompile Include="WindowContextContainer_Test.cpp" />
+    <ClCompile Include="Container_Test.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
