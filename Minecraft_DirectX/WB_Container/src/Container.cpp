@@ -91,7 +91,7 @@ std::unique_ptr<WB::IElement> &WB::Container::Get(int index)
         );
         WB::MessageBoxError(WBContainer::ConsoleLog()->GetName(), err);
 
-         return _empty; // Index out of bounds
+        return _empty; // Index out of bounds
     }
 
 #ifndef NDEBUG
