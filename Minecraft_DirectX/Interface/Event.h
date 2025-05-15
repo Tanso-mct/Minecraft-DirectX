@@ -4,6 +4,7 @@
 
 namespace WB
 {
+    using EVENT_RETURN = void;
 
     template <typename EVENT_KEY, typename EVENT>
     class IEventInstTable
@@ -21,7 +22,7 @@ namespace WB
         virtual void Set(EVENT_KEY key, std::unique_ptr<EVENT> event) = 0;
     };
 
-    template <typename FUNC_KEY, typename FUNC, typename RETURN, typename... ARGS>
+    template <typename FUNC_KEY, typename EVENT, typename... ARGS>
     class IEventFuncTable
     {
     public:
@@ -31,25 +32,18 @@ namespace WB
         virtual bool Has(FUNC_KEY key) const = 0;
         virtual size_t GetSize() const = 0;
 
-        virtual void Add(FUNC_KEY key, RETURN (FUNC::*func)(ARGS...)) = 0;
+        virtual void Add(FUNC_KEY key, EVENT_RETURN (EVENT::*func)(ARGS...)) = 0;
         virtual void Remove(FUNC_KEY key) = 0;
-        virtual RETURN (FUNC::*Get(FUNC_KEY key))(ARGS...) = 0;
-        virtual void Set(FUNC_KEY key, RETURN (FUNC::*func)(ARGS...)) = 0;
+        virtual EVENT_RETURN (EVENT::*Get(FUNC_KEY key))(ARGS...) = 0;
+        virtual void Set(FUNC_KEY key, EVENT_RETURN (EVENT::*func)(ARGS...)) = 0;
     };
 
-    template <typename EVENT_KEY, typename EVENT, typename FUNC_KEY, typename FUNC, typename RETURN, typename... ARGS>
+    template <typename EVENT_KEY, typename EVENT, typename FUNC_KEY, typename... ARGS>
     class IEventInvoker
     {
     public:
         virtual ~IEventInvoker() = default;
-
-        virtual void SetTables
-        (
-            std::unique_ptr<IEventInstTable<EVENT_KEY, EVENT>>& instTable,
-            std::unique_ptr<IEventFuncTable<FUNC_KEY, FUNC, RETURN, ARGS...>>& funcTable
-        ) = 0;
-
-        virtual void Invoke(EVENT_KEY eventKey, FUNC_KEY funcKey, ARGS... args) = 0;
+        virtual EVENT_RETURN Invoke(EVENT_KEY eventKey, FUNC_KEY funcKey, ARGS... args) = 0;
     };
 
 } // namespace WB

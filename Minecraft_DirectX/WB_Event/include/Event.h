@@ -157,12 +157,12 @@ namespace WB
         }        
     };
 
-    template <typename FUNC_KEY, typename FUNC, typename RETURN, typename... ARGS>
-    class EventFuncTable : public IEventFuncTable<FUNC_KEY, FUNC, RETURN, ARGS...>
+    template <typename FUNC_KEY, typename EVENT, typename... ARGS>
+    class EventFuncTable : public IEventFuncTable<FUNC_KEY, EVENT, ARGS...>
     {
     private:
-        std::unordered_map<FUNC_KEY, RETURN (FUNC::*)(ARGS...)> _funcMap;
-        RETURN (FUNC::*_empty) (ARGS...) = nullptr; // Dummy used when returning references
+        std::unordered_map<FUNC_KEY, EVENT_RETURN (EVENT::*)(ARGS...)> _funcMap;
+        EVENT_RETURN (EVENT::*_empty) (ARGS...) = nullptr; // Dummy used when returning references
 
     public:
         /***************************************************************************************************************
@@ -210,7 +210,7 @@ namespace WB
             return _funcMap.size();
         }
 
-        void Add(FUNC_KEY key, RETURN (FUNC::*func)(ARGS...)) override
+        void Add(FUNC_KEY key, EVENT_RETURN (EVENT::*func)(ARGS...)) override
         {
             if (Has(key))
             {
@@ -240,7 +240,7 @@ namespace WB
 #endif
         }
 
-        RETURN (FUNC::*Get(FUNC_KEY key))(ARGS...) override
+        EVENT_RETURN (EVENT::*Get(FUNC_KEY key))(ARGS...) override
         {
             if (!Has(key))
             {
@@ -260,7 +260,7 @@ namespace WB
             return _funcMap[key]; // Return the function pointer
         }
 
-        void Set(FUNC_KEY key, RETURN (FUNC::*func)(ARGS...)) override
+        void Set(FUNC_KEY key, EVENT_RETURN (EVENT::*func)(ARGS...)) override
         {
             if (!Has(key))
             {
@@ -281,5 +281,81 @@ namespace WB
 #endif
         }
 
+    };
+
+    template <typename EVENT_KEY, typename EVENT, typename FUNC_KEY, typename... ARGS>
+    class EventInvoker : public IEventInvoker<EVENT_KEY, EVENT, FUNC_KEY, ARGS...>
+    {
+    private:
+        std::unique_ptr<IEventInstTable<EVENT_KEY, EVENT>>& _instTable;
+        std::unique_ptr<IEventFuncTable<FUNC_KEY, EVENT, ARGS...>>& _funcTable;
+
+    public:
+        /***************************************************************************************************************
+         * Constructor / Destructor
+         * EventInvoker has unique_ptr reference so it need to initialize in constructor.
+        /**************************************************************************************************************/
+
+        EventInvoker
+        (
+            std::unique_ptr<IEventInstTable<EVENT_KEY, EVENT>>& instTable,
+            std::unique_ptr<IEventFuncTable<FUNC_KEY, EVENT, ARGS...>>& funcTable
+        ) : _instTable(instTable), _funcTable(funcTable)
+        {
+#ifndef NDEBUG
+            WBEvent::ConsoleLog()->Log({"EventInvoker Constructor : Created event invoker"});
+#endif
+        }
+
+        ~EventInvoker() override
+        {
+#ifndef NDEBUG
+            WBEvent::ConsoleLog()->Log({"EventInvoker Destructor : Destroyed event invoker"});
+#endif
+        }
+
+        EventInvoker(const EventInvoker&) = delete;
+        EventInvoker& operator=(const EventInvoker&) = delete;
+
+        /***************************************************************************************************************
+         * IEventInvoker interface implementation
+        /**************************************************************************************************************/
+
+        EVENT_RETURN Invoke(EVENT_KEY eventKey, FUNC_KEY funcKey, ARGS... args) override
+        {
+            if (!_instTable->Has(eventKey)) return; // Event key does not exist
+            if (!_funcTable->Has(funcKey)) return; // Function key does not exist
+
+            std::unique_ptr<EVENT>& event = _instTable->Get(eventKey);
+            if (event == nullptr)
+            {
+                std::string err = WBEvent::ConsoleLog()->LogErr
+                (
+                    __FILE__, __LINE__, __FUNCTION__,
+                    {"EventInvoker Invoke : Event instance is null"}
+                );
+                WB::MessageBoxError(WBEvent::ConsoleLog()->GetName(), err);
+
+                return; // Event instance is null
+            }
+
+            EVENT_RETURN (EVENT::*func)(ARGS...) = _funcTable->Get(funcKey);
+            if (func == nullptr)
+            {
+                std::string err = WBEvent::ConsoleLog()->LogErr
+                (
+                    __FILE__, __LINE__, __FUNCTION__,
+                    {"EventInvoker Invoke : Function pointer is null"}
+                );
+                WB::MessageBoxError(WBEvent::ConsoleLog()->GetName(), err);
+
+                return; // Function pointer is null
+            }
+
+            // Call the function on the event instance
+            (event.get()->*func)(args...);
+        }
+
+        
     };
 }
