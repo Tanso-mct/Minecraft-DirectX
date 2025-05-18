@@ -5,8 +5,6 @@ VisualStudioVersion = 17.12.35707.178
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Minecraft_DirectX", "Minecraft_DirectX\Minecraft_DirectX.vcxproj", "{55821CB9-C744-4974-92F2-83E0C5486D57}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WB_Container", "WB_Container\WB_Container.vcxproj", "{F332205D-D0A6-44D5-9AAC-04081D6FA33F}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WB_Container_Test", "WB_Container_Test\WB_Container_Test.vcxproj", "{32199CB4-23D0-4F08-ADE5-2747573CCB3A}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WB_ConsoleLog", "WB_ConsoleLog\WB_ConsoleLog.vcxproj", "{9BA0057D-882B-4FA4-9549-B1AA792C89A9}"
@@ -35,14 +33,6 @@ Global
 		{55821CB9-C744-4974-92F2-83E0C5486D57}.Release|x64.Build.0 = Release|x64
 		{55821CB9-C744-4974-92F2-83E0C5486D57}.Release|x86.ActiveCfg = Release|Win32
 		{55821CB9-C744-4974-92F2-83E0C5486D57}.Release|x86.Build.0 = Release|Win32
-		{F332205D-D0A6-44D5-9AAC-04081D6FA33F}.Debug|x64.ActiveCfg = Debug|x64
-		{F332205D-D0A6-44D5-9AAC-04081D6FA33F}.Debug|x64.Build.0 = Debug|x64
-		{F332205D-D0A6-44D5-9AAC-04081D6FA33F}.Debug|x86.ActiveCfg = Debug|Win32
-		{F332205D-D0A6-44D5-9AAC-04081D6FA33F}.Debug|x86.Build.0 = Debug|Win32
-		{F332205D-D0A6-44D5-9AAC-04081D6FA33F}.Release|x64.ActiveCfg = Release|x64
-		{F332205D-D0A6-44D5-9AAC-04081D6FA33F}.Release|x64.Build.0 = Release|x64
-		{F332205D-D0A6-44D5-9AAC-04081D6FA33F}.Release|x86.ActiveCfg = Release|Win32
-		{F332205D-D0A6-44D5-9AAC-04081D6FA33F}.Release|x86.Build.0 = Release|Win32
 		{32199CB4-23D0-4F08-ADE5-2747573CCB3A}.Debug|x64.ActiveCfg = Debug|x64
 		{32199CB4-23D0-4F08-ADE5-2747573CCB3A}.Debug|x64.Build.0 = Debug|x64
 		{32199CB4-23D0-4F08-ADE5-2747573CCB3A}.Debug|x86.ActiveCfg = Debug|Win32

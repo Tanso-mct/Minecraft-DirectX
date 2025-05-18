@@ -19,7 +19,7 @@ namespace WBEvent
         (
             WB::ConsoleLogConfig
             (
-                "WB_Container",
+                "WB_Event",
                 "\033[0m", // Normal color
                 "\033[31m", // Red color
                 "\033[33m"  // Yellow color

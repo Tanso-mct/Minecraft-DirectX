@@ -109,7 +109,8 @@
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Container_Test.cpp" />
+    <ClCompile Include="DynamicContainer_Test.cpp" />
+    <ClCompile Include="StaticContainer_Test.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -118,12 +119,15 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WB_Container\WB_Container.vcxproj">
-      <Project>{f332205d-d0a6-44d5-9aac-04081d6fa33f}</Project>
-    </ProjectReference>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\WB_ConsoleLog\WB_ConsoleLog.vcxproj">
+      <Project>{9ba0057d-882b-4fa4-9549-b1aa792c89a9}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\WB_Utility\WB_Utility.vcxproj">
+      <Project>{4522c49b-2df0-4603-b9d6-a3a995d04770}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
