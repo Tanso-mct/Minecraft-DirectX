@@ -3,6 +3,7 @@
 #include "WB_WindowContext/include/Config.h"
 #include "Interface/WindowContext.h"
 
+#include <d3d12.h>
 #include <string>
 
 namespace WB

@@ -1,5 +1,7 @@
 ﻿#include "WB_WindowContext/include/WindowContext.h"
 
+#pragma comment(lib, "d3d12.lib")
+
 void WB::WindowContext::Initialize(WB::WindowContextConfig &config)
 {
 }

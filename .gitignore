@@ -398,3 +398,7 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+
+## External Library is not ignored
+!Minecraft_DirectX/ExternalLibrary/** 
