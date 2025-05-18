@@ -1,5 +1,6 @@
 ﻿#include "WB_WindowContext/include/WindowContext.h"
 
+using Microsoft::WRL::ComPtr;
 #pragma comment(lib, "d3d12.lib")
 
 void WB::WindowContext::Initialize(WB::WindowContextConfig &config)
@@ -12,6 +13,7 @@ void WB::WindowContext::CreateWindowNotApi()
 
 void WB::WindowContext::CreateSwapChain()
 {
+
 }
 
 void WB::WindowContext::ResizeSwapChain(int width, int height)

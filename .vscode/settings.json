@@ -59,6 +59,16 @@
         "xutility": "cpp",
         "list": "cpp",
         "unordered_map": "cpp",
-        "xhash": "cpp"
-    }
+        "xhash": "cpp",
+        "condition_variable": "cpp",
+        "functional": "cpp",
+        "future": "cpp",
+        "mutex": "cpp",
+        "ratio": "cpp",
+        "stop_token": "cpp",
+        "thread": "cpp"
+    },
+    "cSpell.words": [
+        "dxgi"
+    ]
 }
