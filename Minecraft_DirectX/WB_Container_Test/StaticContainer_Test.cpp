@@ -26,7 +26,7 @@ enum class DummyDataID
 
 TEST(StaticContainer, Create)
 {
-    std::unique_ptr<WB::StaticContainer<DummyData, DummyDataID>> container 
+    std::unique_ptr<WB::IStaticContainer<DummyData, DummyDataID>> container 
     = std::make_unique<WB::StaticContainer<DummyData, DummyDataID>>();
 
     container->Create(DummyDataID::Size);
@@ -37,7 +37,7 @@ TEST(StaticContainer, Create)
 
 TEST(StaticContainer, Clear)
 {
-    std::unique_ptr<WB::StaticContainer<DummyData, DummyDataID>> container 
+    std::unique_ptr<WB::IStaticContainer<DummyData, DummyDataID>> container 
     = std::make_unique<WB::StaticContainer<DummyData, DummyDataID>>();
 
     container->Create(DummyDataID::Size);
@@ -49,7 +49,7 @@ TEST(StaticContainer, Clear)
 
 TEST(StaticContainer, Set)
 {
-    std::unique_ptr<WB::StaticContainer<DummyData, DummyDataID>> container 
+    std::unique_ptr<WB::IStaticContainer<DummyData, DummyDataID>> container 
     = std::make_unique<WB::StaticContainer<DummyData, DummyDataID>>();
 
     container->Create(DummyDataID::Size);
@@ -62,7 +62,7 @@ TEST(StaticContainer, Set)
 
 TEST(StaticContainer, Get)
 {
-    std::unique_ptr<WB::StaticContainer<DummyData, DummyDataID>> container 
+    std::unique_ptr<WB::IStaticContainer<DummyData, DummyDataID>> container 
     = std::make_unique<WB::StaticContainer<DummyData, DummyDataID>>();
 
     container->Create(DummyDataID::Size);
@@ -80,7 +80,7 @@ TEST(StaticContainer, Get)
 
 TEST(StaticContainer, Release)
 {
-    std::unique_ptr<WB::StaticContainer<DummyData, DummyDataID>> container 
+    std::unique_ptr<WB::IStaticContainer<DummyData, DummyDataID>> container 
     = std::make_unique<WB::StaticContainer<DummyData, DummyDataID>>();
 
     container->Create(DummyDataID::Size);

@@ -10,14 +10,30 @@ TEST(ContainerSet, WindowContext)
     std::unique_ptr<WB::ContainerSet> containerSet = std::make_unique<WB::ContainerSet>();
 
     // Create a StaticContainer for WindowContext
-    std::unique_ptr<WB::WindowContextContainer> container = std::make_unique<WB::WindowContextContainer>();
+    std::unique_ptr<WB::IWindowContextContainer> container = std::make_unique<WB::WindowContextContainer>();
 
     // Set container in the ContainerSet
-    containerSet->Container<WB::IWindowContext, WB::WindowID>() = std::move(container);
+    containerSet->WindowContextCont() = std::move(container);
 
     // Get the container from the ContainerSet
-    std::unique_ptr<WB::WindowContextContainer>& retrievedContainer 
-    = containerSet->Container<WB::IWindowContext, WB::WindowID>();
+    std::unique_ptr<WB::IWindowContextContainer>& retrievedContainer = containerSet->WindowContextCont();
+
+    EXPECT_NE(retrievedContainer, nullptr);
+}
+
+TEST(ContainerSet, SceneContext)
+{
+    // Create a ContainerSet instance
+    std::unique_ptr<WB::ContainerSet> containerSet = std::make_unique<WB::ContainerSet>();
+
+    // Create a StaticContainer for SceneContext
+    std::unique_ptr<WB::ISceneContextContainer> container = std::make_unique<WB::SceneContextContainer>();
+
+    // Set container in the ContainerSet
+    containerSet->SceneContextCont() = std::move(container);
+
+    // Get the container from the ContainerSet
+    std::unique_ptr<WB::ISceneContextContainer>& retrievedContainer = containerSet->SceneContextCont();
 
     EXPECT_NE(retrievedContainer, nullptr);
 }
@@ -28,116 +44,81 @@ TEST(ContainerSet, Monitor)
     std::unique_ptr<WB::ContainerSet> containerSet = std::make_unique<WB::ContainerSet>();
 
     // Create a StaticContainer for Monitor
-    std::unique_ptr<WB::MonitorContainer> container = std::make_unique<WB::MonitorContainer>();
+    std::unique_ptr<WB::IMonitorContainer> container = std::make_unique<WB::MonitorContainer>();
 
     // Set container in the ContainerSet
-    containerSet->Container<WB::IMonitor, WB::MonitorID>() = std::move(container);
+    containerSet->MonitorCont() = std::move(container);
 
     // Get the container from the ContainerSet
-    std::unique_ptr<WB::MonitorContainer>& retrievedContainer 
-    = containerSet->Container<WB::IMonitor, WB::MonitorID>();
+    std::unique_ptr<WB::IMonitorContainer>& retrievedContainer = containerSet->MonitorCont();
 
     EXPECT_NE(retrievedContainer, nullptr);
 }
 
-TEST(ContainerSet, Image)
+TEST(ContainerSet, ImageData)
 {
     // Create a ContainerSet instance
     std::unique_ptr<WB::ContainerSet> containerSet = std::make_unique<WB::ContainerSet>();
 
-    // Create a StaticContainer for Image
-    std::unique_ptr<WB::ImageDataContainer> container = std::make_unique<WB::ImageDataContainer>();
+    // Create a StaticContainer for ImageData
+    std::unique_ptr<WB::IImageDataContainer> container = std::make_unique<WB::ImageDataContainer>();
 
     // Set container in the ContainerSet
-    containerSet->Container<WB::IImageData, WB::ImageID>() = std::move(container);
+    containerSet->ImageDataCont() = std::move(container);
 
     // Get the container from the ContainerSet
-    std::unique_ptr<WB::ImageDataContainer>& retrievedContainer 
-    = containerSet->Container<WB::IImageData, WB::ImageID>();
+    std::unique_ptr<WB::IImageDataContainer>& retrievedContainer = containerSet->ImageDataCont();
 
     EXPECT_NE(retrievedContainer, nullptr);
 }
 
-TEST(ContainerSet, Sound)
+TEST(ContainerSet, SoundData)
 {
     // Create a ContainerSet instance
     std::unique_ptr<WB::ContainerSet> containerSet = std::make_unique<WB::ContainerSet>();
 
-    // Create a StaticContainer for Sound
-    std::unique_ptr<WB::SoundDataContainer> container = std::make_unique<WB::SoundDataContainer>();
+    // Create a StaticContainer for SoundData
+    std::unique_ptr<WB::ISoundDataContainer> container = std::make_unique<WB::SoundDataContainer>();
 
     // Set container in the ContainerSet
-    containerSet->Container<WB::ISoundData, WB::SoundID>() = std::move(container);
+    containerSet->SoundDataCont() = std::move(container);
 
     // Get the container from the ContainerSet
-    std::unique_ptr<WB::SoundDataContainer>& retrievedContainer 
-    = containerSet->Container<WB::ISoundData, WB::SoundID>();
+    std::unique_ptr<WB::ISoundDataContainer>& retrievedContainer = containerSet->SoundDataCont();
 
     EXPECT_NE(retrievedContainer, nullptr);
 }
 
-TEST(ContainerSet, Model)
+TEST(ContainerSet, ModelData)
 {
     // Create a ContainerSet instance
     std::unique_ptr<WB::ContainerSet> containerSet = std::make_unique<WB::ContainerSet>();
 
-    // Create a StaticContainer for Model
-    std::unique_ptr<WB::ModelDataContainer> container = std::make_unique<WB::ModelDataContainer>();
+    // Create a StaticContainer for ModelData
+    std::unique_ptr<WB::IModelDataContainer> container = std::make_unique<WB::ModelDataContainer>();
 
     // Set container in the ContainerSet
-    containerSet->Container<WB::IModelData, WB::ModelID>() = std::move(container);
+    containerSet->ModelDataCont() = std::move(container);
 
     // Get the container from the ContainerSet
-    std::unique_ptr<WB::ModelDataContainer>& retrievedContainer 
-    = containerSet->Container<WB::IModelData, WB::ModelID>();
+    std::unique_ptr<WB::IModelDataContainer>& retrievedContainer = containerSet->ModelDataCont();
 
     EXPECT_NE(retrievedContainer, nullptr);
 }
 
-TEST(ContainerSet, Csv)
+TEST(ContainerSet, CsvData)
 {
     // Create a ContainerSet instance
     std::unique_ptr<WB::ContainerSet> containerSet = std::make_unique<WB::ContainerSet>();
 
-    // Create a StaticContainer for CSV
-    std::unique_ptr<WB::CsvDataContainer> container = std::make_unique<WB::CsvDataContainer>();
+    // Create a StaticContainer for CsvData
+    std::unique_ptr<WB::ICsvDataContainer> container = std::make_unique<WB::CsvDataContainer>();
 
     // Set container in the ContainerSet
-    containerSet->Container<WB::ICsvData, WB::CsvID>() = std::move(container);
+    containerSet->CsvDataCont() = std::move(container);
 
     // Get the container from the ContainerSet
-    std::unique_ptr<WB::CsvDataContainer>& retrievedContainer 
-    = containerSet->Container<WB::ICsvData, WB::CsvID>();
+    std::unique_ptr<WB::ICsvDataContainer>& retrievedContainer = containerSet->CsvDataCont();
 
     EXPECT_NE(retrievedContainer, nullptr);
-}
-
-class DummyData
-{
-public:
-    DummyData() = default;
-    ~DummyData() = default;
-};
-
-enum class DummyID
-{
-    Example,
-    Size,
-};
-
-TEST(ContainerSet, Invalid)
-{
-    // Create a ContainerSet instance
-    std::unique_ptr<WB::ContainerSet> containerSet = std::make_unique<WB::ContainerSet>();
-
-    // Create a StaticContainer for DummyData
-    std::unique_ptr<WB::StaticContainer<DummyData, DummyID>> container
-    = std::make_unique<WB::StaticContainer<DummyData, DummyID>>();
-
-    // Set container in the ContainerSet. This should be invalid.
-    // containerSet->Container<DummyData, DummyID>() = std::move(container);
-
-    // Get the container from the ContainerSet. This should be invalid.
-    // std::unique_ptr<WB::StaticContainer<DummyData, DummyID>>& retrievedContainer
-    // = containerSet->Container<DummyData, DummyID>();
 }

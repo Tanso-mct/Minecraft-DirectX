@@ -2,6 +2,14 @@
 
 #include "Interface/Container.h"
 
+#include "Interface/WindowContext.h"
+#include "Interface/SceneContext.h"
+#include "Interface/Monitor.h"
+#include "Interface/ImageData.h"
+#include "Interface/SoundData.h"
+#include "Interface/ModelData.h"
+#include "Interface/CsvData.h"
+
 #include "WB_ConsoleLog/include/ConsoleLog.h"
 #pragma comment(lib, "WB_ConsoleLog.lib")
 
@@ -32,8 +40,12 @@ namespace WBContainer
 
 namespace WB
 {
+    /*******************************************************************************************************************
+     * StaticContainer
+    /******************************************************************************************************************/
+
     template <typename T, typename ID>
-    class StaticContainer : public IContainer
+    class StaticContainer : public IStaticContainer<T, ID>
     {
     private:
         std::vector<std::unique_ptr<T>> _datas;
@@ -80,10 +92,10 @@ namespace WB
         }
 
         /***************************************************************************************************************
-         * StaticContainer implementation
+         * IStaticContainer interface implementation
         /**************************************************************************************************************/
 
-        void Create(ID size)
+        void Create(ID size) override
         {
             int sizeInt = static_cast<int>(size);
 
@@ -118,7 +130,7 @@ namespace WB
 #endif
         }
 
-        std::unique_ptr<T>& Get(ID index)
+        std::unique_ptr<T>& Get(ID index) override
         {
             int indexInt = static_cast<int>(index);
 
@@ -140,7 +152,7 @@ namespace WB
             return _datas[indexInt]; // Return the unique_ptr reference
         }
 
-        void Set(ID index, std::unique_ptr<T> data)
+        void Set(ID index, std::unique_ptr<T> data) override
         {
             int indexInt = static_cast<int>(index);
 
@@ -163,7 +175,7 @@ namespace WB
 #endif
         }
 
-        std::unique_ptr<T> Release(ID index)
+        std::unique_ptr<T> Release(ID index) override
         {
             int indexInt = static_cast<int>(index);
 
@@ -186,8 +198,24 @@ namespace WB
         }
     };
 
+    /*******************************************************************************************************************
+     * All data types of StaticContainer defined here
+    /******************************************************************************************************************/
+
+    using WindowContextContainer = StaticContainer<IWindowContext, WindowID>;
+    using SceneContextContainer = StaticContainer<ISceneContext, SceneID>;
+    using MonitorContainer = StaticContainer<IMonitor, MonitorID>;
+    using ImageDataContainer = StaticContainer<IImageData, ImageID>;
+    using SoundDataContainer = StaticContainer<ISoundData, SoundID>;
+    using ModelDataContainer = StaticContainer<IModelData, ModelID>;
+    using CsvDataContainer = StaticContainer<ICsvData, CsvID>;
+
+    /*******************************************************************************************************************
+     * DynamicContainer
+    /******************************************************************************************************************/
+
     template <typename T>
-    class DynamicContainer : public IContainer
+    class DynamicContainer : public IDynamicContainer<T>
     {
     private:
         std::vector<std::unique_ptr<T>> _datas;
@@ -234,10 +262,10 @@ namespace WB
         }
 
         /***************************************************************************************************************
-         * DynamicContainer implementation
+         * IDynamicContainer interface implementation
         /**************************************************************************************************************/
 
-        void Create(int size)
+        void Create(int size) override
         {
             if (size < 0)
             {
@@ -270,7 +298,7 @@ namespace WB
 #endif
         }
 
-        void Resize(int size)
+        void Resize(int size) override
         {
             if (size < 0)
             {
@@ -291,7 +319,7 @@ namespace WB
 #endif
         }
 
-        int PushBack(std::unique_ptr<T> data)
+        int PushBack(std::unique_ptr<T> data) override
         {
             _datas.push_back(std::move(data)); // Move the unique_ptr into the container
 
@@ -301,7 +329,7 @@ namespace WB
             return static_cast<int>(_datas.size()) - 1; // Return the index of the new element
         }
 
-        std::unique_ptr<T> PopBack()
+        std::unique_ptr<T> PopBack() override
         {
             if (_datas.empty())
             {
@@ -324,7 +352,7 @@ namespace WB
             return data; // Return the unique_ptr
         }
 
-        std::unique_ptr<T>& Get(int index)
+        std::unique_ptr<T>& Get(int index) override
         {
             if (index < 0 || index >= static_cast<int>(_datas.size()))
             {
@@ -344,7 +372,7 @@ namespace WB
             return _datas[index]; // Return the unique_ptr reference
         }
 
-        void Set(int index, std::unique_ptr<T> data)
+        void Set(int index, std::unique_ptr<T> data) override
         {
             if (index < 0 || index >= static_cast<int>(_datas.size()))
             {
@@ -365,7 +393,7 @@ namespace WB
 #endif
         }
 
-        std::unique_ptr<T> Release(int index)
+        std::unique_ptr<T> Release(int index) override
         {
             if (index < 0 || index >= static_cast<int>(_datas.size()))
             {

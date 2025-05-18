@@ -18,7 +18,7 @@ public:
 
 TEST(DynamicContainer, Create)
 {
-    std::unique_ptr<WB::DynamicContainer<DummyData>> container 
+    std::unique_ptr<WB::IDynamicContainer<DummyData>> container 
     = std::make_unique<WB::DynamicContainer<DummyData>>();
 
     container->Create(10);
@@ -29,7 +29,7 @@ TEST(DynamicContainer, Create)
 
 TEST(DynamicContainer, Clear)
 {
-    std::unique_ptr<WB::DynamicContainer<DummyData>> container 
+    std::unique_ptr<WB::IDynamicContainer<DummyData>> container 
     = std::make_unique<WB::DynamicContainer<DummyData>>();
 
     container->Create(10);
@@ -41,7 +41,7 @@ TEST(DynamicContainer, Clear)
 
 TEST(DynamicContainer, Resize)
 {
-    std::unique_ptr<WB::DynamicContainer<DummyData>> container 
+    std::unique_ptr<WB::IDynamicContainer<DummyData>> container 
     = std::make_unique<WB::DynamicContainer<DummyData>>();
 
     container->Create(10);
@@ -55,7 +55,7 @@ TEST(DynamicContainer, Resize)
 
 TEST(DynamicContainer, PushBack)
 {
-    std::unique_ptr<WB::DynamicContainer<DummyData>> container 
+    std::unique_ptr<WB::IDynamicContainer<DummyData>> container 
     = std::make_unique<WB::DynamicContainer<DummyData>>();
 
     container->Create(10);
@@ -70,7 +70,7 @@ TEST(DynamicContainer, PushBack)
 
 TEST(DynamicContainer, PopBack)
 {
-    std::unique_ptr<WB::DynamicContainer<DummyData>> container 
+    std::unique_ptr<WB::IDynamicContainer<DummyData>> container 
     = std::make_unique<WB::DynamicContainer<DummyData>>();
 
     container->Create(10);
@@ -88,7 +88,7 @@ TEST(DynamicContainer, PopBack)
 
 TEST(DynamicContainer, Set)
 {
-    std::unique_ptr<WB::DynamicContainer<DummyData>> container 
+    std::unique_ptr<WB::IDynamicContainer<DummyData>> container 
     = std::make_unique<WB::DynamicContainer<DummyData>>();
 
     container->Create(10);
@@ -102,7 +102,7 @@ TEST(DynamicContainer, Set)
 
 TEST(DynamicContainer, Get)
 {
-    std::unique_ptr<WB::DynamicContainer<DummyData>> container 
+    std::unique_ptr<WB::IDynamicContainer<DummyData>> container 
     = std::make_unique<WB::DynamicContainer<DummyData>>();
 
     container->Create(10);
@@ -119,7 +119,7 @@ TEST(DynamicContainer, Get)
 
 TEST(DynamicContainer, Release)
 {
-    std::unique_ptr<WB::DynamicContainer<DummyData>> container 
+    std::unique_ptr<WB::IDynamicContainer<DummyData>> container 
     = std::make_unique<WB::DynamicContainer<DummyData>>();
 
     container->Create(10);

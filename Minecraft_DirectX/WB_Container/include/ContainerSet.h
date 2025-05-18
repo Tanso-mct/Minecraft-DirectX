@@ -1,11 +1,7 @@
 ﻿#pragma once
 
-#include "Interface/WindowContext.h"
-#include "Interface/Monitor.h"
-#include "Interface/ImageData.h"
-#include "Interface/SoundData.h"
-#include "Interface/ModelData.h"
-#include "Interface/CsvData.h"
+#include "Interface/Container.h"
+#include "Interface/ContainerSet.h"
 
 #include "WB_Container/include/Container.h"
 
@@ -14,67 +10,20 @@
 
 namespace WB
 {
-    /*******************************************************************************************************************
-     * IDs of various data are defined in enumeration type
-     * Use it to create various containers and access elements
-    /******************************************************************************************************************/
-
-    enum class WindowID
-    {
-        Game,
-        Size,
-    };
-    using WindowContextContainer = StaticContainer<WB::IWindowContext, WindowID>;
-
-    enum class MonitorID
-    {
-        Keyboard,
-        Mouse,
-        Size,
-    };
-    using MonitorContainer = StaticContainer<WB::IMonitor, MonitorID>;
-
-    enum class ImageID
-    {
-        Example,
-        Size,
-    };
-    using ImageDataContainer = StaticContainer<WB::IImageData, ImageID>;
-
-    enum class SoundID
-    {
-        Example,
-        Size,
-    };
-    using SoundDataContainer = StaticContainer<WB::ISoundData, SoundID>;
-
-    enum class ModelID
-    {
-        Example,
-        Size,
-    };
-    using ModelDataContainer = StaticContainer<WB::IModelData, ModelID>;
-
-    enum class CsvID
-    {
-        Example,
-        Size,
-    };
-    using CsvDataContainer = StaticContainer<WB::ICsvData, CsvID>;
-
-    class ContainerSet
+    class ContainerSet : public IContainerSet
     {
     private:
         /***************************************************************************************************************
          * StaticContainers
         /**************************************************************************************************************/
 
-        std::unique_ptr<WindowContextContainer> _windowContext = nullptr;
-        std::unique_ptr<MonitorContainer> _monitor = nullptr;
-        std::unique_ptr<ImageDataContainer> _image = nullptr;
-        std::unique_ptr<SoundDataContainer> _sound = nullptr;
-        std::unique_ptr<ModelDataContainer> _model = nullptr;
-        std::unique_ptr<CsvDataContainer> _csv = nullptr;
+        std::unique_ptr<IWindowContextContainer> _windowContext = nullptr;
+        std::unique_ptr<ISceneContextContainer> _sceneContext = nullptr;
+        std::unique_ptr<IMonitorContainer> _monitor = nullptr;
+        std::unique_ptr<IImageDataContainer> _image = nullptr;
+        std::unique_ptr<ISoundDataContainer> _sound = nullptr;
+        std::unique_ptr<IModelDataContainer> _model = nullptr;
+        std::unique_ptr<ICsvDataContainer> _csv = nullptr;
 
     public:
         /***************************************************************************************************************
@@ -100,79 +49,40 @@ namespace WB
         ContainerSet& operator=(const ContainerSet&) = delete;
 
         /***************************************************************************************************************
-         * Template function implementation
-         * Specialization, to be used only with specified types
+         * IContainerSet interface implementation
         /**************************************************************************************************************/
 
-        template<typename T, typename ID>
-        std::unique_ptr<StaticContainer<T, ID>>& Container()
-        {
-            std::string err = WBContainer::ConsoleLog()->LogErr
-            (
-                __FILE__, __LINE__, __FUNCTION__,
-                {"ContainerSet Container : Invalid container type"}
-            );
-            WB::MessageBoxError(WBContainer::ConsoleLog()->GetName(), err);
-
-            return std::make_unique<StaticContainer<T, ID>>(); // Return an empty container
-        }
-
-        /***************************************************************************************************************
-         * WindowContext
-        /**************************************************************************************************************/
-
-        template<>
-        std::unique_ptr<WindowContextContainer>& Container<WB::IWindowContext, WindowID>()
+        std::unique_ptr<IWindowContextContainer>& WindowContextCont() override
         {
             return _windowContext;
         }
 
-        /***************************************************************************************************************
-         * Monitor
-        /**************************************************************************************************************/
+        std::unique_ptr<ISceneContextContainer>& SceneContextCont() override
+        {
+            return _sceneContext;
+        }
 
-        template<>
-        std::unique_ptr<MonitorContainer>& Container<WB::IMonitor, MonitorID>()
+        std::unique_ptr<IMonitorContainer>& MonitorCont() override
         {
             return _monitor;
         }
 
-        /***************************************************************************************************************
-         * Image
-        /**************************************************************************************************************/
-
-        template<>
-        std::unique_ptr<ImageDataContainer>& Container<WB::IImageData, ImageID>()
+        std::unique_ptr<IImageDataContainer>& ImageDataCont() override
         {
             return _image;
         }
 
-        /***************************************************************************************************************
-         * Sound
-        /**************************************************************************************************************/
-
-        template<>
-        std::unique_ptr<SoundDataContainer>& Container<WB::ISoundData, SoundID>()
+        std::unique_ptr<ISoundDataContainer>& SoundDataCont() override
         {
             return _sound;
         }
 
-        /***************************************************************************************************************
-         * Model
-        /**************************************************************************************************************/
-
-        template<>
-        std::unique_ptr<ModelDataContainer>& Container<WB::IModelData, ModelID>()
+        std::unique_ptr<IModelDataContainer>& ModelDataCont() override
         {
             return _model;
         }
 
-        /***************************************************************************************************************
-         * CSV
-        /**************************************************************************************************************/
-
-        template<>
-        std::unique_ptr<CsvDataContainer>& Container<WB::ICsvData, CsvID>()
+        std::unique_ptr<ICsvDataContainer>& CsvDataCont() override
         {
             return _csv;
         }
