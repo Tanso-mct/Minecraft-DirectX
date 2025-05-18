@@ -139,6 +139,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\DeviceInstance.cpp" />
+    <ClCompile Include="src\Log.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\Config.h" />
+    <ClInclude Include="include\DeviceInstance.h" />
+    <ClInclude Include="include\Log.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WB_ConsoleLog\WB_ConsoleLog.vcxproj">
+      <Project>{9ba0057d-882b-4fa4-9549-b1aa792c89a9}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

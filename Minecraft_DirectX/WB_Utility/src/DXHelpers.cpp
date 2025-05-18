@@ -7,7 +7,7 @@ using Microsoft::WRL::ComPtr;
 #pragma comment(lib, "d3d12.lib")
 #pragma comment(lib, "dxgi.lib")
 
-UTILITY_API void WB::CreateDX12Factory(Microsoft::WRL::ComPtr<IDXGIFactory4> &factory)
+UTILITY_API void WB::CreateDX12Factory(Microsoft::WRL::ComPtr<IDXGIFactory4>& factory)
 {
     UINT dxgiFactoryFlags = 0;
 
@@ -38,7 +38,7 @@ UTILITY_API void WB::CreateDX12Factory(Microsoft::WRL::ComPtr<IDXGIFactory4> &fa
 
 UTILITY_API void WB::CreateDX12Device
 (
-    Microsoft::WRL::ComPtr<ID3D12Device4> &device, D3D_FEATURE_LEVEL &dstFeatureLevel,
+    Microsoft::WRL::ComPtr<ID3D12Device4>& device, D3D_FEATURE_LEVEL& dstFeatureLevel,
     Microsoft::WRL::ComPtr<IDXGIFactory4> factory
 ){
     D3D_FEATURE_LEVEL featureLevels[] =
@@ -125,7 +125,7 @@ UTILITY_API void WB::CreateDX12Device
 
 UTILITY_API void WB::CreateCommandQueue
 (
-    Microsoft::WRL::ComPtr<ID3D12CommandQueue> &commandQueue, Microsoft::WRL::ComPtr<ID3D12Device4> device
+    Microsoft::WRL::ComPtr<ID3D12CommandQueue>& commandQueue, Microsoft::WRL::ComPtr<ID3D12Device4> device
 ){
     D3D12_COMMAND_QUEUE_DESC queueDesc = {};
     queueDesc.Flags = D3D12_COMMAND_QUEUE_FLAG_NONE;
