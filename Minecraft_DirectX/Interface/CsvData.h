@@ -2,10 +2,10 @@
 
 namespace WB
 {
-    class IJsonData
+    class ICsvData
     {
     public:
-        virtual ~IJsonData() = default;
+        virtual ~ICsvData() = default;
     };
     
 } // namespace MCT

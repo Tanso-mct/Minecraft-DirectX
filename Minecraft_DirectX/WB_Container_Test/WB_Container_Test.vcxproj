@@ -109,6 +109,7 @@
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ContainerSet_Test.cpp" />
     <ClCompile Include="DynamicContainer_Test.cpp" />
     <ClCompile Include="StaticContainer_Test.cpp" />
     <ClCompile Include="pch.cpp">
