@@ -1,10 +1,8 @@
 ﻿#pragma once
 
-#include "Interface/Container.h"
-
 namespace WB
 {
-    class ISceneContext : public IElement
+    class ISceneContext
     {
     public:
         virtual ~ISceneContext() = default;

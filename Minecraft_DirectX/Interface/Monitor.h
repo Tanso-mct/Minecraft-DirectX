@@ -1,10 +1,8 @@
 ﻿#pragma once
 
-#include "Interface/Container.h"
-
 namespace WB
 {
-    class IMonitor : public IElement
+    class IMonitor
     {
     public:
         virtual ~IMonitor() = default;

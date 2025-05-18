@@ -4,7 +4,7 @@
 
 namespace WB
 {
-    class IWindowContext : public IElement
+    class IWindowContext
     {
     public:
         virtual ~IWindowContext() = default;
