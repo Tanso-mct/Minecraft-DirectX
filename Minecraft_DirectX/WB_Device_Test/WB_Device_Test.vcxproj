@@ -107,7 +107,7 @@
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="test.cpp" />
+    <ClCompile Include="DeviceInstance_Test.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -118,6 +118,9 @@
   <ItemGroup>
     <ProjectReference Include="..\WB_Device\WB_Device.vcxproj">
       <Project>{21d70eb7-a2a3-43f0-b793-403fe58bc951}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\WB_Utility\WB_Utility.vcxproj">
+      <Project>{4522c49b-2df0-4603-b9d6-a3a995d04770}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
