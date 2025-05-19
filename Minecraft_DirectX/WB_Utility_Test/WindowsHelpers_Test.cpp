@@ -31,7 +31,6 @@ TEST(WindowsHelpers, CreateWindowNotApi)
 
 TEST(WindowsHelpers, ShowWindowNotApi)
 {
-    WB::WindowState state;
     WNDCLASSEX wc = { sizeof(WNDCLASSEX) };
     wc.lpfnWndProc = WindowProc;
     wc.hInstance = GetModuleHandle(nullptr);

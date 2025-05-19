@@ -16,10 +16,10 @@ namespace WB
         HWND hWndParent = nullptr;
 
         std::wstring name = L"Window";
-        int posX = CW_USEDEFAULT;
-        int posY = CW_USEDEFAULT;
-        int width = 800;
-        int height = 600;
+        UINT posX = CW_USEDEFAULT;
+        UINT posY = CW_USEDEFAULT;
+        UINT width = 800;
+        UINT height = 600;
     };
 
     class IWindowContext
@@ -30,12 +30,19 @@ namespace WB
         virtual void Initialize(const WindowDesc& desc) = 0;
 
         virtual void Create(WNDCLASSEX& wc) = 0;
-        virtual void Release() = 0;
+        virtual void Resize() = 0;
 
-        virtual void Resize(int width, int height) = 0;
+        virtual bool& IsFocus() = 0;
 
-        virtual void Show() = 0;
-        virtual void Hide() = 0;
+        virtual void Maximized() = 0;
+        virtual void Minimized() = 0;
+        virtual void Restored() = 0;
+
+        virtual void SetPos(int x, int y, int width, int height, UINT flags) = 0;
+
+        virtual void Maximize() = 0;
+        virtual void Minimize() = 0;
+        virtual void Restore() = 0;
     };
     
 } // namespace MCT

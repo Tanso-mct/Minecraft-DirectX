@@ -4,6 +4,7 @@
 
 using Microsoft::WRL::ComPtr;
 
+#include "ExternalLibrary/DXHeaders/d3dx12.h"
 #pragma comment(lib, "d3d12.lib")
 #pragma comment(lib, "dxgi.lib")
 
@@ -138,4 +139,293 @@ UTILITY_API void WB::CreateCommandQueue
         std::string err = WB::HrToString(hr);
         WB::MessageBoxError("CreateCommandQueue", err);
     }
+}
+
+UTILITY_API void WB::CheckDeviceInstIsNotNull
+(
+    Microsoft::WRL::ComPtr<IDXGIFactory4> factory, 
+    Microsoft::WRL::ComPtr<ID3D12Device4> device, 
+    Microsoft::WRL::ComPtr<ID3D12CommandQueue> commandQueue
+){
+    if (factory == nullptr)
+    {
+        WB::MessageBoxError
+        (
+            "DXHelpers", 
+            "DXGIFactory is null. It should be initialized before creating the window."
+        );
+    }
+
+    if (device == nullptr)
+    {
+        WB::MessageBoxError
+        (
+            "DXHelpers", 
+            "DX12Device is null. It should be initialized before creating the window."
+        );
+    }
+
+    if (commandQueue == nullptr)
+    {
+        WB::MessageBoxError
+        (
+            "DXHelpers", 
+            "CommandQueue is null. It should be initialized before creating the window."
+        );
+    }
+}
+
+UTILITY_API void WB::CreateSwapChain
+(
+    Microsoft::WRL::ComPtr<IDXGIFactory4> factory, Microsoft::WRL::ComPtr<ID3D12CommandQueue> commandQueue,
+    const UINT &frameCount, 
+    const UINT &clientWidth, const UINT &clientHeight, HWND hWnd, 
+    Microsoft::WRL::ComPtr<IDXGISwapChain3> &swapChain, int &frameIndex
+){
+    HRESULT hr = E_FAIL;
+
+    DXGI_SWAP_CHAIN_DESC1 desc = {};
+    desc.BufferCount = frameCount;
+    desc.Width = clientWidth;
+    desc.Height = clientHeight;
+    desc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+    desc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
+    desc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;
+    desc.SampleDesc.Count = 1;
+
+    ComPtr<IDXGISwapChain1> swapChain1;
+
+    hr = factory->CreateSwapChainForHwnd
+    (
+        commandQueue.Get(),
+        hWnd,
+        &desc,
+        nullptr,
+        nullptr,
+        &swapChain1
+    );
+    if (FAILED(hr))
+    {
+        std::string err = "CreateSwapChain : Failed to create swap chain";
+        err += WB::HrToString(hr);
+        WB::MessageBoxError("DXHelpers", err);
+    }
+
+    hr = swapChain1.As(&(swapChain));
+    if (FAILED(hr))
+    {
+        std::string err = "CreateSwapChain : Failed to create swap chain";
+        err += WB::HrToString(hr);
+        WB::MessageBoxError("DXHelpers", err);
+    }
+
+    // Get the current back buffer index
+    frameIndex = swapChain->GetCurrentBackBufferIndex();
+}
+
+UTILITY_API void WB::ResizeSwapChain
+(
+    const UINT &frameCount, const UINT &clientWidth, const UINT &clientHeight, 
+    Microsoft::WRL::ComPtr<IDXGISwapChain3> swapChain, int &frameIndex
+){
+    HRESULT hr = swapChain->ResizeBuffers
+    (
+        frameCount, clientWidth, clientHeight,
+        DXGI_FORMAT_R8G8B8A8_UNORM, DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH
+    );
+    if (FAILED(hr))
+    {
+        std::string err = "ResizeSwapChain : Failed to resize swap chain";
+        err += WB::HrToString(hr);
+        WB::MessageBoxError("DXHelpers", err);
+    }
+
+    // Get the current back buffer index
+    frameIndex = swapChain->GetCurrentBackBufferIndex();
+}
+
+UTILITY_API void WB::CreateRenderTargetViewHeap
+(
+    Microsoft::WRL::ComPtr<ID3D12Device4> device, 
+    const UINT &frameCount, 
+    Microsoft::WRL::ComPtr<ID3D12DescriptorHeap>& rtvHeap, UINT &rtvDescriptorSize
+){
+    HRESULT hr = E_FAIL;
+
+    D3D12_DESCRIPTOR_HEAP_DESC heapDesc = {};
+    heapDesc.NumDescriptors = frameCount;
+    heapDesc.NodeMask = 0;
+    heapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_RTV;
+    heapDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_NONE;
+    
+    hr = device->CreateDescriptorHeap(&heapDesc, IID_PPV_ARGS(rtvHeap.GetAddressOf()));
+    if (FAILED(hr))
+    {
+        std::string err = "CreateRenderTargetViewHeap : Failed to create render target view heap";
+        err += WB::HrToString(hr);
+        WB::MessageBoxError("DXHelpers", err);
+    }
+
+    // Get the render target view descriptor size
+    rtvDescriptorSize = device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
+}
+
+UTILITY_API void WB::CreateRenderTargetView
+(
+    Microsoft::WRL::ComPtr<ID3D12Device4> device, 
+    const UINT &frameCount, Microsoft::WRL::ComPtr<IDXGISwapChain3> swapChain,
+    Microsoft::WRL::ComPtr<ID3D12Resource> *renderTargets, 
+    Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> rtvHeap, UINT rtvDescriptorSize
+){
+    HRESULT hr = E_FAIL;
+
+    CD3DX12_CPU_DESCRIPTOR_HANDLE rtvHandle(rtvHeap->GetCPUDescriptorHandleForHeapStart());
+
+    for (UINT i = 0; i < frameCount; i++)
+    {
+        hr = swapChain->GetBuffer(i, IID_PPV_ARGS(renderTargets[i].GetAddressOf()));
+        if (FAILED(hr))
+        {
+            std::string err = "CreateRenderTargetView : Failed to get back buffer";
+            err += WB::HrToString(hr);
+            WB::MessageBoxError("DXHelpers", err);
+        }
+
+        device->CreateRenderTargetView(renderTargets[i].Get(), nullptr, rtvHandle);
+        rtvHandle.Offset(1, rtvDescriptorSize);
+
+        std::wstring name = L"RenderTarget:" + std::to_wstring(i);
+        hr = renderTargets[i]->SetName(name.c_str());
+        if (FAILED(hr))
+        {
+            std::string err = "CreateRenderTargetView : Failed to set render target name";
+            err += WB::HrToString(hr);
+            WB::MessageBoxError("DXHelpers", err);
+        }
+    }
+}
+
+UTILITY_API void WB::CreateCommandAllocator
+(
+    Microsoft::WRL::ComPtr<ID3D12Device4> device, const UINT &frameCount, 
+    Microsoft::WRL::ComPtr<ID3D12CommandAllocator>* commandAllocators
+){
+    HRESULT hr = E_FAIL;
+    
+    for (UINT i = 0; i < frameCount; i++)
+    {
+        hr = device->CreateCommandAllocator
+        (
+            D3D12_COMMAND_LIST_TYPE_DIRECT, IID_PPV_ARGS(commandAllocators[i].GetAddressOf())
+        );
+        if (FAILED(hr))
+        {
+            std::string err = "CreateCommandAllocator : Failed to create command allocator";
+            err += WB::HrToString(hr);
+            WB::MessageBoxError("DXHelpers", err);
+        }
+    }
+}
+
+UTILITY_API void WB::CreateDepthStencilViewHeap
+(
+    Microsoft::WRL::ComPtr<ID3D12Device4> device, 
+    const UINT &depthStencilCount, Microsoft::WRL::ComPtr<ID3D12DescriptorHeap>& dsvHeap
+){
+    HRESULT hr = E_FAIL;
+
+    D3D12_DESCRIPTOR_HEAP_DESC heapDesc = {};
+    heapDesc.NumDescriptors = depthStencilCount;
+    heapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_DSV;
+    heapDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_NONE;
+
+    hr = device->CreateDescriptorHeap(&heapDesc, IID_PPV_ARGS(dsvHeap.GetAddressOf()));
+    if (FAILED(hr))
+    {
+        std::string err = "CreateDepthStencilViewHeap : Failed to create depth stencil view heap";
+        err += WB::HrToString(hr);
+        WB::MessageBoxError("DXHelpers", err);
+    }
+}
+
+UTILITY_API void WB::CreateDepthStencil
+(
+    Microsoft::WRL::ComPtr<ID3D12Device4> device, const UINT &clientWidth, const UINT &clientHeight, 
+    Microsoft::WRL::ComPtr<ID3D12Resource> &depthStencil
+){
+    HRESULT hr = E_FAIL;
+
+    D3D12_CLEAR_VALUE clearValue = {};
+    clearValue.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
+    clearValue.DepthStencil.Depth = 1.0f;
+    clearValue.DepthStencil.Stencil = 0;
+
+    const CD3DX12_HEAP_PROPERTIES heapProperties(D3D12_HEAP_TYPE_DEFAULT);
+    const CD3DX12_RESOURCE_DESC resourceDesc = CD3DX12_RESOURCE_DESC::Tex2D
+    (
+        DXGI_FORMAT_D24_UNORM_S8_UINT,
+        clientWidth, clientHeight,
+        1, 0, 1, 0,
+        D3D12_RESOURCE_FLAG_ALLOW_DEPTH_STENCIL
+    );
+
+    hr = device->CreateCommittedResource
+    (
+        &heapProperties,
+        D3D12_HEAP_FLAG_NONE,
+        &resourceDesc,
+        D3D12_RESOURCE_STATE_DEPTH_WRITE,
+        &clearValue,
+        IID_PPV_ARGS(depthStencil.GetAddressOf())
+    );
+    if (FAILED(hr))
+    {
+        std::string err = "CreateDepthStencil : Failed to create depth stencil view";
+        err += WB::HrToString(hr);
+        WB::MessageBoxError("DXHelpers", err);
+    }
+
+    std::wstring name = L"DepthStencil";
+    hr = depthStencil->SetName(name.c_str());
+    if (FAILED(hr))
+    {
+        std::string err = "CreateDepthStencil : Failed to set depth stencil name";
+        err += WB::HrToString(hr);
+        WB::MessageBoxError("DXHelpers", err);
+    }
+}
+
+UTILITY_API void WB::CreateDepthStencilView
+(
+    Microsoft::WRL::ComPtr<ID3D12Device4> device, 
+    Microsoft::WRL::ComPtr<ID3D12Resource> depthStencil, Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> dsvHeap
+){
+    D3D12_DEPTH_STENCIL_VIEW_DESC desc = {};
+    desc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
+    desc.ViewDimension = D3D12_DSV_DIMENSION_TEXTURE2D;
+    desc.Flags = D3D12_DSV_FLAG_NONE;
+
+    device->CreateDepthStencilView
+    (
+        depthStencil.Get(), &desc, 
+        dsvHeap->GetCPUDescriptorHandleForHeapStart()
+    );
+}
+
+UTILITY_API void WB::CreateViewport(D3D12_VIEWPORT &viewport, const UINT &clientWidth, const UINT &clientHeight)
+{
+    viewport.Width = static_cast<float>(clientWidth);
+    viewport.Height = static_cast<float>(clientHeight);
+    viewport.MinDepth = 0.0f;
+    viewport.MaxDepth = 1.0f;
+    viewport.TopLeftX = 0.0f;
+    viewport.TopLeftY = 0.0f;
+}
+
+UTILITY_API void WB::CreateScissorRect(D3D12_RECT &scissorRect, const UINT &clientWidth, const UINT &clientHeight)
+{
+    scissorRect.top = 0;
+    scissorRect.bottom = clientHeight;
+    scissorRect.left = 0;
+    scissorRect.right = clientWidth;
 }

@@ -12,22 +12,47 @@ namespace WB
     class WINDOW_CONTEXT_API WindowContext : public IWindowContext
     {
     private:
+        /*******************************************************************************************************************
+         * Windows related
+        /******************************************************************************************************************/
+
         HWND _hWnd = nullptr;
         HINSTANCE _hInstance = nullptr;
         HWND _hWndParent = nullptr;
 
         std::wstring _name = L"Window";
-        int _posX = CW_USEDEFAULT;
-        int _posY = CW_USEDEFAULT;
-        int _width = 800;
-        int _height = 600;
+        UINT _posX = CW_USEDEFAULT;
+        UINT _posY = CW_USEDEFAULT;
+
+        UINT _width = 800;
+        UINT _height = 600;
+
+        UINT _clientWidth = 800;
+        UINT _clientHeight = 600;
 
         bool _isFocus = false;
         bool _isMaximized = false;
         bool _isMinimized = false;
 
+        /*******************************************************************************************************************
+         * DirectX12 related
+        /******************************************************************************************************************/
+
         Microsoft::WRL::ComPtr<IDXGISwapChain3> _swapChain = nullptr;
+        static const UINT _frameCount = 2;
         int _frameIndex = 0;
+
+        Microsoft::WRL::ComPtr<ID3D12Resource> _renderTargets[_frameCount] = { nullptr };
+        Microsoft::WRL::ComPtr<ID3D12CommandAllocator> _commandAllocators[_frameCount] = { nullptr };
+        Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> _rtvHeap = nullptr;
+        UINT _rtvDescriptorSize = 0;
+
+        static const UINT _depthStencilCount = 1;
+        Microsoft::WRL::ComPtr<ID3D12Resource> _depthStencil = nullptr;
+        Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> _dsvHeap = nullptr;
+
+        D3D12_VIEWPORT _viewport;
+        D3D12_RECT _scissorRect;
 
     public:
         /***************************************************************************************************************
@@ -44,11 +69,18 @@ namespace WB
         void Initialize(const WindowDesc& desc) override;
 
         void Create(WNDCLASSEX& wc) override;
-        void Release() override;
+        void Resize() override;
 
-        void Resize(int width, int height) override;
+        bool& IsFocus() override { return _isFocus; }
 
-        void Show() override;
-        void Hide() override;
+        void Maximized() override;
+        void Minimized() override;
+        void Restored() override;
+
+        void SetPos(int x, int y, int width, int height, UINT flags) override;
+
+        void Maximize() override;
+        void Minimize() override;
+        void Restore() override;
     };
 }
