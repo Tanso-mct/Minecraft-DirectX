@@ -116,7 +116,7 @@ UTILITY_API void WB::CreateDX12Device
         }
     }
 
-    if (hr == E_FAIL)
+    if (FAILED(hr))
     {
         std::string err = WB::HrToString(hr);
         WB::MessageBoxError("CreateDX12Device", err);
