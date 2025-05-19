@@ -6,69 +6,49 @@
 #include <d3d12.h>
 #include <dxgi1_4.h>
 #include <wrl/client.h>
-#include <string>
 
 namespace WB
 {
-    WINDOW_CONTEXT_API class WindowContext : public IWindowContext
+    class WINDOW_CONTEXT_API WindowContext : public IWindowContext
     {
     private:
         HWND _hWnd = nullptr;
         HINSTANCE _hInstance = nullptr;
+        HWND _hWndParent = nullptr;
 
-        std::string _name = "Window";
+        std::wstring _name = L"Window";
         int _posX = CW_USEDEFAULT;
         int _posY = CW_USEDEFAULT;
-        unsigned int _width = 800;
-        unsigned int _height = 600;
+        int _width = 800;
+        int _height = 600;
 
         bool _isFocus = false;
         bool _isMaximized = false;
         bool _isMinimized = false;
+
+        Microsoft::WRL::ComPtr<IDXGISwapChain3> _swapChain = nullptr;
+        int _frameIndex = 0;
 
     public:
         /***************************************************************************************************************
          * Constructor / Destructor
         /**************************************************************************************************************/
 
-        WindowContext() = default;
-        ~WindowContext() override = default;
+        WindowContext();
+        ~WindowContext() override;
 
         /***************************************************************************************************************
          * IWindowContext interface implementation
         /**************************************************************************************************************/
 
-        void Initialize(WindowContextConfig& config) override;
+        void Initialize(const WindowDesc& desc) override;
 
-        HWND& GetHWnd() override { return _hWnd; }
-        HINSTANCE& GetHInstance() override { return _hInstance; }
+        void Create(WNDCLASSEX& wc) override;
+        void Release() override;
 
-        std::string_view GetName() override { return _name; }
-        int GetPosX() override { return _posX; }
-        int GetPosY() override { return _posY; }
-        int GetWidth() override { return _width; }
-        int GetHeight() override { return _height; }
+        void Resize(int width, int height) override;
 
-        void CreateWindowNotApi() override;
-
-        bool& IsFocus() override { return _isFocus; }
-        bool& IsMaximized() override { return _isMaximized; }
-        bool& IsMinimized() override { return _isMinimized; }
-
-        void CreateSwapChain() override;
-        void ResizeSwapChain(int width, int height) override;
-
-        void CreateRenderTarget() override;
-        void ResizeRenderTarget(int width, int height) override;
-
-        void CreateDepthStencil() override;
-        void ResizeDepthStencil(int width, int height) override;
-
-        void CreateViewport() override;
-        void ResizeViewport(int width, int height) override;
-
-        void CreateScissorRect() override;
-        void ResizeScissorRect(int width, int height) override;
-
+        void Show() override;
+        void Hide() override;
     };
 }

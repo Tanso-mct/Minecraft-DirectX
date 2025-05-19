@@ -3,9 +3,6 @@
 #include "WB_ConsoleLog/include/ConsoleLog.h"
 #pragma comment(lib, "WB_ConsoleLog.lib")
 
-#include "WB_Utility/include/ErrorHandling.h"
-#pragma comment(lib, "WB_Utility.lib")
-
 std::unique_ptr<WB::IConsoleLog> &WBWindowContext::ConsoleLog()
 {
     static std::unique_ptr<WB::IConsoleLog> consoleLog = std::make_unique<WB::ConsoleLog>

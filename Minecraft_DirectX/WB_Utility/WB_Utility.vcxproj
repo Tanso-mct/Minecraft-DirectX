@@ -143,12 +143,14 @@
   <ItemGroup>
     <ClCompile Include="src\DXHelpers.cpp" />
     <ClCompile Include="src\ErrorHandling.cpp" />
+    <ClCompile Include="src\WindowsHelpers.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Config.h" />
     <ClInclude Include="include\DataCast.h" />
     <ClInclude Include="include\DXHelpers.h" />
     <ClInclude Include="include\ErrorHandling.h" />
+    <ClInclude Include="include\WindowsHelpers.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
