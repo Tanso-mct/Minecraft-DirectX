@@ -13,5 +13,12 @@ UTILITY_API void WB::MessageBoxError(const std::string &title, const std::string
         MB_OK | MB_ICONERROR | MB_TASKMODAL | MB_SETFOREGROUND | MB_TOPMOST
     );
 
-    exit(1);
+#ifdef _WINDOWS
+    PostQuitMessage(0);
+#endif
+
+#ifdef _CONSOLE
+    std::exit(EXIT_FAILURE);
+#endif
+
 }
