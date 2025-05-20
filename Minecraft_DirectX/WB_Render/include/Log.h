@@ -4,7 +4,7 @@
 
 #include <memory>
 
-namespace WBDevice
+namespace WBRender
 {
     std::unique_ptr<WB::IConsoleLog> &ConsoleLog();
 } // namespace WBWindowContext

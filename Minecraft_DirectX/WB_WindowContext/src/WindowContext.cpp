@@ -7,8 +7,8 @@
 #include "WB_Utility/include/ErrorHandling.h"
 #pragma comment(lib, "WB_Utility.lib")
 
-#include "WB_Device/include/DeviceInstance.h"
-#pragma comment(lib, "WB_Device.lib")
+#include "WB_Render/include/Render.h"
+#pragma comment(lib, "WB_Render.lib")
 
 using Microsoft::WRL::ComPtr;
 
@@ -87,14 +87,14 @@ void WB::WindowContext::Create(WNDCLASSEX &wc)
     /*******************************************************************************************************************
      * Check if the DXGIFactory, DX12Device and CommandQueue are initialized
     /******************************************************************************************************************/
-    WB::CheckDeviceInstIsNotNull(WB::DXGIFactory(), WB::DX12Device(), WB::CommandQueue());
+    WB::CheckDeviceInstIsNotNull(WB::Render::DXGIFactory(), WB::Render::DX12Device(), WB::Render::CommandQueue());
 
     /*******************************************************************************************************************
      * Create the swap chain
     /******************************************************************************************************************/
     WB::CreateSwapChain
     (
-        WB::DXGIFactory(), WB::CommandQueue(), _frameCount,
+        WB::Render::DXGIFactory(), WB::Render::CommandQueue(), _frameCount,
         _clientWidth, _clientHeight, _hWnd,
         _swapChain, _frameIndex
     );
@@ -104,7 +104,7 @@ void WB::WindowContext::Create(WNDCLASSEX &wc)
     /******************************************************************************************************************/
     WB::CreateRenderTargetViewHeap
     (
-        WB::DX12Device(), _frameCount,
+        WB::Render::DX12Device(), _frameCount,
         _rtvHeap, _rtvDescriptorSize
     );
 
@@ -113,29 +113,29 @@ void WB::WindowContext::Create(WNDCLASSEX &wc)
     /******************************************************************************************************************/
     WB::CreateRenderTargetView
     (
-        WB::DX12Device(), _frameCount, _swapChain,
+        WB::Render::DX12Device(), _frameCount, _swapChain,
         _renderTargets, _rtvHeap, _rtvDescriptorSize
     );
 
     /*******************************************************************************************************************
      * Create the command allocators
     /******************************************************************************************************************/
-    WB::CreateCommandAllocator(WB::DX12Device(), _frameCount, _commandAllocators);
+    WB::CreateCommandAllocator(WB::Render::DX12Device(), _frameCount, _commandAllocators);
 
     /*******************************************************************************************************************
      * Create the depth stencil
     /******************************************************************************************************************/
-    WB::CreateDepthStencil(WB::DX12Device(), _clientWidth, _clientHeight, _depthStencil);
+    WB::CreateDepthStencil(WB::Render::DX12Device(), _clientWidth, _clientHeight, _depthStencil);
     
     /*******************************************************************************************************************
      * Create the descriptor heap
     /******************************************************************************************************************/
-    WB::CreateDepthStencilViewHeap(WB::DX12Device(), _depthStencilCount, _dsvHeap);
+    WB::CreateDepthStencilViewHeap(WB::Render::DX12Device(), _depthStencilCount, _dsvHeap);
 
     /*******************************************************************************************************************
      * Create the depth stencil view
     /******************************************************************************************************************/
-    WB::CreateDepthStencilView(WB::DX12Device(), _depthStencil, _dsvHeap);
+    WB::CreateDepthStencilView(WB::Render::DX12Device(), _depthStencil, _dsvHeap);
 
     /*******************************************************************************************************************
      * Create the viewport
@@ -198,19 +198,19 @@ void WB::WindowContext::Resize()
     /******************************************************************************************************************/
     WB::CreateRenderTargetView
     (
-        WB::DX12Device(), _frameCount, _swapChain,
+        WB::Render::DX12Device(), _frameCount, _swapChain,
         _renderTargets, _rtvHeap, _rtvDescriptorSize
     );
 
     /*******************************************************************************************************************
      * Create the depth stencil
     /******************************************************************************************************************/
-    WB::CreateDepthStencil(WB::DX12Device(), _clientWidth, _clientHeight, _depthStencil);
+    WB::CreateDepthStencil(WB::Render::DX12Device(), _clientWidth, _clientHeight, _depthStencil);
 
     /*******************************************************************************************************************
      * Create the depth stencil view
     /******************************************************************************************************************/
-    WB::CreateDepthStencilView(WB::DX12Device(), _depthStencil, _dsvHeap);
+    WB::CreateDepthStencilView(WB::Render::DX12Device(), _depthStencil, _dsvHeap);
 
     /*******************************************************************************************************************
      * Create the viewport
