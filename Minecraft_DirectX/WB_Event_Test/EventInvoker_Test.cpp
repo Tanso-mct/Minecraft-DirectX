@@ -32,13 +32,10 @@ TEST(EventInvoker, Create)
 
     // Create invoker
     std::unique_ptr<WB::IEventInvoker<int, DummyEventWithID, bool, int, float>> eventInvoker
-    = std::make_unique<WB::EventInvoker<int, DummyEventWithID, bool, int, float>>
-    (
-        eventInstTable,
-        eventFuncTable
-    );
-    
-    EXPECT_NE(eventInvoker, nullptr);
+    = std::make_unique<WB::EventInvoker<int, DummyEventWithID, bool, int, float>>();
+
+    // Set tables
+    eventInvoker->SetTables(std::move(eventInstTable), std::move(eventFuncTable));
 }
 
 TEST(EventInvoker, Invoke)
@@ -74,13 +71,10 @@ TEST(EventInvoker, Invoke)
 
     // Create invoker
     std::unique_ptr<WB::IEventInvoker<int, DummyEventWithID, bool, int, float>> eventInvoker
-    = std::make_unique<WB::EventInvoker<int, DummyEventWithID, bool, int, float>>
-    (
-        eventInstTable,
-        eventFuncTable
-    );
-    
-    EXPECT_NE(eventInvoker, nullptr);
+    = std::make_unique<WB::EventInvoker<int, DummyEventWithID, bool, int, float>>();
+
+    // Set tables
+    eventInvoker->SetTables(std::move(eventInstTable), std::move(eventFuncTable));
 
     // Invoke function
     eventInvoker->Invoke(eventKey, funcKey, 7, 3.14f);

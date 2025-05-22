@@ -63,7 +63,7 @@ namespace WB
         EventInstTable& operator=(const EventInstTable&) = delete;
 
         /***************************************************************************************************************
-         * IEventInstTable interface implementation
+         * IEventTable interface implementation
         /**************************************************************************************************************/
 
         void Clear() override
@@ -85,6 +85,10 @@ namespace WB
             return _eventMap.size();
         }
 
+        /***************************************************************************************************************
+         * IEventInstTable interface implementation
+        /**************************************************************************************************************/
+
         void Add(EVENT_KEY key, std::unique_ptr<EVENT> event) override
         {
             if (Has(key))
@@ -100,19 +104,22 @@ namespace WB
 #endif
         }
 
-        void Remove(EVENT_KEY key) override
+        std::unique_ptr<EVENT> Remove(EVENT_KEY key) override
         {
             if (!Has(key))
             {
                 WBEvent::ConsoleLog()->LogWrn({"EventInstTable Remove : Key does not exist"});
-                return; // Key does not exist
+                return nullptr; // Key does not exist
             }
 
+            std::unique_ptr<EVENT> event = std::move(_eventMap[key]);
             _eventMap.erase(key);
 
 #ifndef NDEBUG
             WBEvent::ConsoleLog()->Log({"EventInstTable Remove : Removed event instance"});
 #endif
+
+            return event; // Return the unique_ptr
         }
 
         std::unique_ptr<EVENT>& Get(EVENT_KEY key) override
@@ -225,19 +232,22 @@ namespace WB
 #endif
         }
 
-        void Remove(FUNC_KEY key) override
+        EVENT_RETURN (EVENT::*Remove(FUNC_KEY key))(ARGS...) override
         {
             if (!Has(key))
             {
                 WBEvent::ConsoleLog()->LogWrn({"EventFuncTable Remove : Key does not exist"});
-                return; // Key does not exist
+                return nullptr; // Key does not exist
             }
 
+            EVENT_RETURN (EVENT::*func)(ARGS...) = _funcMap[key];
             _funcMap.erase(key);
 
 #ifndef NDEBUG
             WBEvent::ConsoleLog()->Log({"EventFuncTable Remove : Removed event function"});
 #endif
+
+            return func; // Return the function pointer
         }
 
         EVENT_RETURN (EVENT::*Get(FUNC_KEY key))(ARGS...) override
@@ -287,8 +297,8 @@ namespace WB
     class EventInvoker : public IEventInvoker<EVENT_KEY, EVENT, FUNC_KEY, ARGS...>
     {
     private:
-        std::unique_ptr<IEventInstTable<EVENT_KEY, EVENT>>& _instTable;
-        std::unique_ptr<IEventFuncTable<FUNC_KEY, EVENT, ARGS...>>& _funcTable;
+        std::unique_ptr<IEventInstTable<EVENT_KEY, EVENT>> _instTable;
+        std::unique_ptr<IEventFuncTable<FUNC_KEY, EVENT, ARGS...>> _funcTable;
 
     public:
         /***************************************************************************************************************
@@ -296,11 +306,7 @@ namespace WB
          * EventInvoker has unique_ptr reference so it need to initialize in constructor.
         /**************************************************************************************************************/
 
-        EventInvoker
-        (
-            std::unique_ptr<IEventInstTable<EVENT_KEY, EVENT>>& instTable,
-            std::unique_ptr<IEventFuncTable<FUNC_KEY, EVENT, ARGS...>>& funcTable
-        ) : _instTable(instTable), _funcTable(funcTable)
+        EventInvoker()
         {
 #ifndef NDEBUG
             WBEvent::ConsoleLog()->Log({"EventInvoker Constructor : Created event invoker"});
@@ -320,6 +326,20 @@ namespace WB
         /***************************************************************************************************************
          * IEventInvoker interface implementation
         /**************************************************************************************************************/
+
+        void SetTables
+        (
+            std::unique_ptr<IEventInstTable<EVENT_KEY, EVENT>> instTable,
+            std::unique_ptr<IEventFuncTable<FUNC_KEY, EVENT, ARGS...>> funcTable
+        ) override
+        {
+            _instTable = std::move(instTable);
+            _funcTable = std::move(funcTable);
+
+#ifndef NDEBUG
+            WBEvent::ConsoleLog()->Log({"EventInvoker SetTables : Set event tables"});
+#endif
+        }
 
         EVENT_RETURN Invoke(EVENT_KEY eventKey, FUNC_KEY funcKey, ARGS... args) override
         {
