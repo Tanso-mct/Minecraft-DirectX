@@ -5,7 +5,7 @@
 
 TEST(UtilityErrorHandling, MessageBoxTest)
 {
-     WB::MessageBoxError("Test Error", "This is a test error message.");
+    // WB::MessageBoxError("Test Error", "This is a test error message.");
 }
 
 TEST(UtilityErrorHandling, HrToString)

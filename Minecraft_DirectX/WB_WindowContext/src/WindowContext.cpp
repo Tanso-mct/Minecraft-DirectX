@@ -106,6 +106,14 @@ void WB::WindowContext::Create(WNDCLASSEX &wc)
     );
 
     /*******************************************************************************************************************
+     * Get the render targets from the swap chain
+    /******************************************************************************************************************/
+    WB::GetRenderTargetsFromSwapChain
+    (
+        _frameCount, _swapChain, _renderTargets
+    );
+
+    /*******************************************************************************************************************
      * Create the render target view heap
     /******************************************************************************************************************/
     WB::CreateRenderTargetViewHeap
@@ -119,7 +127,7 @@ void WB::WindowContext::Create(WNDCLASSEX &wc)
     /******************************************************************************************************************/
     WB::CreateRenderTargetView
     (
-        WB::GpuContext::DX12Device(), _frameCount, _swapChain,
+        WB::GpuContext::DX12Device(), _frameCount,
         _renderTargets, _rtvHeap, _rtvDescriptorSize
     );
 
@@ -213,11 +221,19 @@ void WB::WindowContext::Resize()
     WB::ResizeSwapChain(_frameCount, _clientWidth, _clientHeight, _swapChain, _frameIndex);
 
     /*******************************************************************************************************************
+     * Get the render targets from the swap chain
+    /******************************************************************************************************************/
+    WB::GetRenderTargetsFromSwapChain
+    (
+        _frameCount, _swapChain, _renderTargets
+    );
+
+    /*******************************************************************************************************************
      * Create the render target views
     /******************************************************************************************************************/
     WB::CreateRenderTargetView
     (
-        WB::GpuContext::DX12Device(), _frameCount, _swapChain,
+        WB::GpuContext::DX12Device(), _frameCount,
         _renderTargets, _rtvHeap, _rtvDescriptorSize
     );
 

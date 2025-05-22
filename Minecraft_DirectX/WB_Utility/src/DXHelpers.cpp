@@ -210,6 +210,34 @@ UTILITY_API void WB::ResizeSwapChain
     frameIndex = swapChain->GetCurrentBackBufferIndex();
 }
 
+UTILITY_API void WB::GetRenderTargetsFromSwapChain
+(
+    const UINT &frameCount, 
+    Microsoft::WRL::ComPtr<IDXGISwapChain3> swapChain, Microsoft::WRL::ComPtr<ID3D12Resource> *renderTargets
+){
+    HRESULT hr = E_FAIL;
+
+    for (UINT i = 0; i < frameCount; i++)
+    {
+        hr = swapChain->GetBuffer(i, IID_PPV_ARGS(renderTargets[i].GetAddressOf()));
+        if (FAILED(hr))
+        {
+            std::string err = "GetRenderTargetsFromSwapChain : Failed to get back buffer";
+            err += WB::HrToString(hr);
+            WB::MessageBoxError("DXHelpers", err);
+        }
+
+        std::wstring name = L"RenderTarget:" + std::to_wstring(i);
+        hr = renderTargets[i]->SetName(name.c_str());
+        if (FAILED(hr))
+        {
+            std::string err = "GetRenderTargetsFromSwapChain : Failed to set render target name";
+            err += WB::HrToString(hr);
+            WB::MessageBoxError("DXHelpers", err);
+        }
+    }
+}
+
 UTILITY_API void WB::CreateRenderTargetViewHeap
 (
     Microsoft::WRL::ComPtr<ID3D12Device4> device, 
@@ -239,8 +267,7 @@ UTILITY_API void WB::CreateRenderTargetViewHeap
 UTILITY_API void WB::CreateRenderTargetView
 (
     Microsoft::WRL::ComPtr<ID3D12Device4> device, 
-    const UINT &frameCount, Microsoft::WRL::ComPtr<IDXGISwapChain3> swapChain,
-    Microsoft::WRL::ComPtr<ID3D12Resource> *renderTargets, 
+    const UINT &frameCount, Microsoft::WRL::ComPtr<ID3D12Resource> *renderTargets, 
     Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> rtvHeap, UINT rtvDescriptorSize
 ){
     HRESULT hr = E_FAIL;
@@ -249,25 +276,8 @@ UTILITY_API void WB::CreateRenderTargetView
 
     for (UINT i = 0; i < frameCount; i++)
     {
-        hr = swapChain->GetBuffer(i, IID_PPV_ARGS(renderTargets[i].GetAddressOf()));
-        if (FAILED(hr))
-        {
-            std::string err = "CreateRenderTargetView : Failed to get back buffer";
-            err += WB::HrToString(hr);
-            WB::MessageBoxError("DXHelpers", err);
-        }
-
         device->CreateRenderTargetView(renderTargets[i].Get(), nullptr, rtvHandle);
         rtvHandle.Offset(1, rtvDescriptorSize);
-
-        std::wstring name = L"RenderTarget:" + std::to_wstring(i);
-        hr = renderTargets[i]->SetName(name.c_str());
-        if (FAILED(hr))
-        {
-            std::string err = "CreateRenderTargetView : Failed to set render target name";
-            err += WB::HrToString(hr);
-            WB::MessageBoxError("DXHelpers", err);
-        }
     }
 }
 

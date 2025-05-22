@@ -47,6 +47,12 @@ namespace WB
      * Render Target
     /******************************************************************************************************************/
 
+    UTILITY_API void GetRenderTargetsFromSwapChain
+    (
+        const UINT& frameCount,
+        Microsoft::WRL::ComPtr<IDXGISwapChain3> swapChain, Microsoft::WRL::ComPtr<ID3D12Resource>* renderTargets
+    );
+
     UTILITY_API void CreateRenderTargetViewHeap
     (
         Microsoft::WRL::ComPtr<ID3D12Device4> device, const UINT& frameCount,
@@ -56,8 +62,7 @@ namespace WB
     UTILITY_API void CreateRenderTargetView
     (
         Microsoft::WRL::ComPtr<ID3D12Device4> device, 
-        const UINT& frameCount, Microsoft::WRL::ComPtr<IDXGISwapChain3> swapChain,
-        Microsoft::WRL::ComPtr<ID3D12Resource>* renderTargets,
+        const UINT& frameCount, Microsoft::WRL::ComPtr<ID3D12Resource>* renderTargets,
         Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> rtvHeap, UINT rtvDescriptorSize
     );
 
