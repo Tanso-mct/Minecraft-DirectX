@@ -153,8 +153,8 @@
     <ProjectReference Include="..\WB_ConsoleLog\WB_ConsoleLog.vcxproj">
       <Project>{9ba0057d-882b-4fa4-9549-b1aa792c89a9}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\WB_Device\WB_Device.vcxproj">
-      <Project>{21d70eb7-a2a3-43f0-b793-403fe58bc951}</Project>
+    <ProjectReference Include="..\WB_GpuContext\WB_GpuContext.vcxproj">
+      <Project>{71d5e705-b824-481f-a5cb-7f60c19b1d6b}</Project>
     </ProjectReference>
     <ProjectReference Include="..\WB_Utility\WB_Utility.vcxproj">
       <Project>{4522c49b-2df0-4603-b9d6-a3a995d04770}</Project>

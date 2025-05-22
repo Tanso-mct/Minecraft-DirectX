@@ -19,14 +19,5 @@ namespace WB
 
         Render() = default;
         ~Render() override = default;
-
-        /***************************************************************************************************************
-         * Static device instance functions
-        /**************************************************************************************************************/
-
-        static Microsoft::WRL::ComPtr<IDXGIFactory4>& DXGIFactory();
-        static Microsoft::WRL::ComPtr<ID3D12Device4>& DX12Device();
-        static D3D_FEATURE_LEVEL& FeatureLevel();
-        static Microsoft::WRL::ComPtr<ID3D12CommandQueue>& CommandQueue();
     };
 }

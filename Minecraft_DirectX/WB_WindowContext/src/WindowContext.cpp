@@ -7,8 +7,8 @@
 #include "WB_Utility/include/ErrorHandling.h"
 #pragma comment(lib, "WB_Utility.lib")
 
-#include "WB_Render/include/Render.h"
-#pragma comment(lib, "WB_Render.lib")
+#include "WB_GpuContext/include/GpuContext.h"
+#pragma comment(lib, "WB_GpuContext.lib")
 
 using Microsoft::WRL::ComPtr;
 
@@ -57,6 +57,12 @@ void WB::WindowContext::Create(WNDCLASSEX &wc)
 {
     HRESULT hr = E_FAIL;
 
+    if (_isCreated)
+    {
+        WBWindowContext::ConsoleLog()->LogWrn({"WindowContext Create : Window already created"});
+        return;
+    }
+
     /*******************************************************************************************************************
      * Create and show the window
     /******************************************************************************************************************/
@@ -85,16 +91,16 @@ void WB::WindowContext::Create(WNDCLASSEX &wc)
     }
 
     /*******************************************************************************************************************
-     * Check if the DXGIFactory, DX12Device and CommandQueue are initialized
+     * Check if the GpuContext is created
     /******************************************************************************************************************/
-    WB::CheckDeviceInstIsNotNull(WB::Render::DXGIFactory(), WB::Render::DX12Device(), WB::Render::CommandQueue());
+    WB::GpuContext::ThrowIfNotCreated();
 
     /*******************************************************************************************************************
      * Create the swap chain
     /******************************************************************************************************************/
     WB::CreateSwapChain
     (
-        WB::Render::DXGIFactory(), WB::Render::CommandQueue(), _frameCount,
+        WB::GpuContext::DXGIFactory(), WB::GpuContext::CommandQueue(), _frameCount,
         _clientWidth, _clientHeight, _hWnd,
         _swapChain, _frameIndex
     );
@@ -104,7 +110,7 @@ void WB::WindowContext::Create(WNDCLASSEX &wc)
     /******************************************************************************************************************/
     WB::CreateRenderTargetViewHeap
     (
-        WB::Render::DX12Device(), _frameCount,
+        WB::GpuContext::DX12Device(), _frameCount,
         _rtvHeap, _rtvDescriptorSize
     );
 
@@ -113,29 +119,29 @@ void WB::WindowContext::Create(WNDCLASSEX &wc)
     /******************************************************************************************************************/
     WB::CreateRenderTargetView
     (
-        WB::Render::DX12Device(), _frameCount, _swapChain,
+        WB::GpuContext::DX12Device(), _frameCount, _swapChain,
         _renderTargets, _rtvHeap, _rtvDescriptorSize
     );
 
     /*******************************************************************************************************************
      * Create the command allocators
     /******************************************************************************************************************/
-    WB::CreateCommandAllocator(WB::Render::DX12Device(), _frameCount, _commandAllocators);
+    WB::CreateCommandAllocator(WB::GpuContext::DX12Device(), _frameCount, _commandAllocators);
 
     /*******************************************************************************************************************
      * Create the depth stencil
     /******************************************************************************************************************/
-    WB::CreateDepthStencil(WB::Render::DX12Device(), _clientWidth, _clientHeight, _depthStencil);
+    WB::CreateDepthStencil(WB::GpuContext::DX12Device(), _clientWidth, _clientHeight, _depthStencil);
     
     /*******************************************************************************************************************
      * Create the descriptor heap
     /******************************************************************************************************************/
-    WB::CreateDepthStencilViewHeap(WB::Render::DX12Device(), _depthStencilCount, _dsvHeap);
+    WB::CreateDepthStencilViewHeap(WB::GpuContext::DX12Device(), _depthStencilCount, _dsvHeap);
 
     /*******************************************************************************************************************
      * Create the depth stencil view
     /******************************************************************************************************************/
-    WB::CreateDepthStencilView(WB::Render::DX12Device(), _depthStencil, _dsvHeap);
+    WB::CreateDepthStencilView(WB::GpuContext::DX12Device(), _depthStencil, _dsvHeap);
 
     /*******************************************************************************************************************
      * Create the viewport
@@ -148,6 +154,8 @@ void WB::WindowContext::Create(WNDCLASSEX &wc)
     WB::CreateScissorRect(_scissorRect, _clientWidth, _clientHeight);
 
 
+    _isCreated = true;
+
 #ifndef NDEBUG
     WBWindowContext::ConsoleLog()->Log({"WindowContext Create : Created window"});
 #endif
@@ -156,6 +164,17 @@ void WB::WindowContext::Create(WNDCLASSEX &wc)
 void WB::WindowContext::Resize()
 {
     HRESULT hr = E_FAIL;
+
+    if (!_isCreated)
+    {
+        std::string err = WBWindowContext::ConsoleLog()->LogErr
+        (
+            __FILE__, __LINE__, __FUNCTION__,
+            {"Resize : Window context not created"}
+        );
+        WB::MessageBoxError(WBWindowContext::ConsoleLog()->GetName(), err);
+        return;
+    }
 
     /*******************************************************************************************************************
      * Get the client rect
@@ -198,19 +217,19 @@ void WB::WindowContext::Resize()
     /******************************************************************************************************************/
     WB::CreateRenderTargetView
     (
-        WB::Render::DX12Device(), _frameCount, _swapChain,
+        WB::GpuContext::DX12Device(), _frameCount, _swapChain,
         _renderTargets, _rtvHeap, _rtvDescriptorSize
     );
 
     /*******************************************************************************************************************
      * Create the depth stencil
     /******************************************************************************************************************/
-    WB::CreateDepthStencil(WB::Render::DX12Device(), _clientWidth, _clientHeight, _depthStencil);
+    WB::CreateDepthStencil(WB::GpuContext::DX12Device(), _clientWidth, _clientHeight, _depthStencil);
 
     /*******************************************************************************************************************
      * Create the depth stencil view
     /******************************************************************************************************************/
-    WB::CreateDepthStencilView(WB::Render::DX12Device(), _depthStencil, _dsvHeap);
+    WB::CreateDepthStencilView(WB::GpuContext::DX12Device(), _depthStencil, _dsvHeap);
 
     /*******************************************************************************************************************
      * Create the viewport

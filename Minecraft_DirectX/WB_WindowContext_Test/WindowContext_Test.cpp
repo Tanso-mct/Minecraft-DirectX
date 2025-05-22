@@ -7,8 +7,8 @@
 #include "WB_Utility/include/DXHelpers.h"
 #pragma comment(lib, "WB_Utility.lib")
 
-#include "WB_Render/include/Render.h"
-#pragma comment(lib, "WB_Render.lib")
+#include "WB_GpuContext/include/GpuContext.h"
+#pragma comment(lib, "WB_GpuContext.lib")
 
 #include <memory>
 
@@ -55,17 +55,8 @@ TEST(WindowContext, Create)
         windowContext->Initialize(desc);
     }
 
-    // Create DXGIFactory
-    if (WB::Render::DXGIFactory() == nullptr) 
-        WB::CreateDX12Factory(WB::Render::DXGIFactory());
-
-    // Create DX12Device
-    if (WB::Render::DX12Device() == nullptr) 
-        WB::CreateDX12Device(WB::Render::DX12Device(), WB::Render::FeatureLevel(), WB::Render::DXGIFactory());
-
-    // Create CommandQueue
-    if (WB::Render::CommandQueue() == nullptr) 
-        WB::CreateCommandQueue(WB::Render::CommandQueue(), WB::Render::DX12Device());
+    // Create GpuContext
+    WB::GpuContext::Create();
 
     // Create
     {
@@ -95,17 +86,8 @@ TEST(WindowContext, Resize)
         windowContext->Initialize(desc);
     }
 
-    // Create DXGIFactory
-    if (WB::Render::DXGIFactory() == nullptr) 
-        WB::CreateDX12Factory(WB::Render::DXGIFactory());
-
-    // Create DX12Device
-    if (WB::Render::DX12Device() == nullptr) 
-        WB::CreateDX12Device(WB::Render::DX12Device(), WB::Render::FeatureLevel(), WB::Render::DXGIFactory());
-
-    // Create CommandQueue
-    if (WB::Render::CommandQueue() == nullptr) 
-        WB::CreateCommandQueue(WB::Render::CommandQueue(), WB::Render::DX12Device());
+    // Create GpuContext
+    WB::GpuContext::Create();
 
     // Create
     {

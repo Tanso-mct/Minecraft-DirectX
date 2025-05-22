@@ -141,40 +141,6 @@ UTILITY_API void WB::CreateCommandQueue
     }
 }
 
-UTILITY_API void WB::CheckDeviceInstIsNotNull
-(
-    Microsoft::WRL::ComPtr<IDXGIFactory4> factory, 
-    Microsoft::WRL::ComPtr<ID3D12Device4> device, 
-    Microsoft::WRL::ComPtr<ID3D12CommandQueue> commandQueue
-){
-    if (factory == nullptr)
-    {
-        WB::MessageBoxError
-        (
-            "DXHelpers", 
-            "DXGIFactory is null. It should be initialized before creating the window."
-        );
-    }
-
-    if (device == nullptr)
-    {
-        WB::MessageBoxError
-        (
-            "DXHelpers", 
-            "DX12Device is null. It should be initialized before creating the window."
-        );
-    }
-
-    if (commandQueue == nullptr)
-    {
-        WB::MessageBoxError
-        (
-            "DXHelpers", 
-            "CommandQueue is null. It should be initialized before creating the window."
-        );
-    }
-}
-
 UTILITY_API void WB::CreateSwapChain
 (
     Microsoft::WRL::ComPtr<IDXGIFactory4> factory, Microsoft::WRL::ComPtr<ID3D12CommandQueue> commandQueue,

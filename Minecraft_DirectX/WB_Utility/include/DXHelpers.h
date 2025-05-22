@@ -25,13 +25,6 @@ namespace WB
         Microsoft::WRL::ComPtr<ID3D12CommandQueue>& commandQueue, Microsoft::WRL::ComPtr<ID3D12Device4> device
     );
 
-    UTILITY_API void CheckDeviceInstIsNotNull
-    (
-        Microsoft::WRL::ComPtr<IDXGIFactory4> factory,
-        Microsoft::WRL::ComPtr<ID3D12Device4> device,
-        Microsoft::WRL::ComPtr<ID3D12CommandQueue> commandQueue
-    );
-
     /*******************************************************************************************************************
      * Swap Chain
     /******************************************************************************************************************/
