@@ -252,12 +252,20 @@ void WB::WindowContext::Maximized()
     _isMaximized = true;
     _isMinimized = false;
     Resize();
+
+#ifndef NDEBUG
+    WBWindowContext::ConsoleLog()->Log({"WindowContext Maximized : Window maximized"});
+#endif
 }
 
 void WB::WindowContext::Minimized()
 {
     _isMaximized = false;
     _isMinimized = true;
+
+#ifndef NDEBUG
+    WBWindowContext::ConsoleLog()->Log({"WindowContext Minimized : Window minimized"});
+#endif
 }
 
 void WB::WindowContext::Restored()
@@ -265,6 +273,10 @@ void WB::WindowContext::Restored()
     _isMaximized = false;
     _isMinimized = false;
     Resize();
+
+#ifndef NDEBUG
+    WBWindowContext::ConsoleLog()->Log({"WindowContext Restored : Window restored"});
+#endif
 }
 
 void WB::WindowContext::SetPos(int x, int y, int width, int height, UINT flags)
@@ -279,10 +291,21 @@ void WB::WindowContext::SetPos(int x, int y, int width, int height, UINT flags)
         WB::MessageBoxError(WBWindowContext::ConsoleLog()->GetName(), err);
     }
 
-    _posX = x;
-    _posY = y;
-    _width = width;
-    _height = height;
+    if (!(flags & SWP_NOMOVE))
+    {
+        _posX = x;
+        _posY = y;
+    }
+
+    if (!(flags & SWP_NOSIZE))
+    {
+        _width = width;
+        _height = height;
+    }
+
+#ifndef NDEBUG
+    WBWindowContext::ConsoleLog()->Log({"WindowContext SetPos : Set window position"});
+#endif
 }
 
 void WB::WindowContext::Maximize()
