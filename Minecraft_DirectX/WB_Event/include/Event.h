@@ -32,11 +32,11 @@ namespace WBEvent
 
 namespace WB
 {
-    template <typename EVENT_KEY, typename EVENT>
-    class EventInstTable : public IEventInstTable<EVENT_KEY, EVENT>
+    template <typename KEY, typename EVENT>
+    class EventInstTable : public IEventInstTable<KEY, EVENT>
     {
     private:
-        std::unordered_map<EVENT_KEY, std::unique_ptr<EVENT>> _eventMap;
+        std::unordered_map<KEY, std::unique_ptr<EVENT>> _eventMap;
         std::unique_ptr<EVENT> _empty = nullptr; // Dummy used when returning references
 
     public:
@@ -75,7 +75,7 @@ namespace WB
 #endif
         }
 
-        bool Has(EVENT_KEY key) const override
+        bool Has(KEY key) const override
         {
             return _eventMap.find(key) != _eventMap.end();
         }
@@ -89,7 +89,7 @@ namespace WB
          * IEventInstTable interface implementation
         /**************************************************************************************************************/
 
-        void Add(EVENT_KEY key, std::unique_ptr<EVENT> event) override
+        void Add(KEY key, std::unique_ptr<EVENT> event) override
         {
             if (Has(key))
             {
@@ -104,7 +104,7 @@ namespace WB
 #endif
         }
 
-        std::unique_ptr<EVENT> Remove(EVENT_KEY key) override
+        std::unique_ptr<EVENT> Remove(KEY key) override
         {
             if (!Has(key))
             {
@@ -122,7 +122,7 @@ namespace WB
             return event; // Return the unique_ptr
         }
 
-        std::unique_ptr<EVENT>& Get(EVENT_KEY key) override
+        std::unique_ptr<EVENT>& Get(KEY key) override
         {
             if (!Has(key))
             {
@@ -142,7 +142,7 @@ namespace WB
             return _eventMap[key]; // Return the unique_ptr reference
         }
 
-        void Set(EVENT_KEY key, std::unique_ptr<EVENT> event) override
+        void Set(KEY key, std::unique_ptr<EVENT> event) override
         {
             if (!Has(key))
             {
@@ -164,11 +164,11 @@ namespace WB
         }        
     };
 
-    template <typename FUNC_KEY, typename EVENT, typename... ARGS>
-    class EventFuncTable : public IEventFuncTable<FUNC_KEY, EVENT, ARGS...>
+    template <typename KEY, typename EVENT, typename... ARGS>
+    class EventFuncTable : public IEventFuncTable<KEY, EVENT, ARGS...>
     {
     private:
-        std::unordered_map<FUNC_KEY, EVENT_RETURN (EVENT::*)(ARGS...)> _funcMap;
+        std::unordered_map<KEY, EVENT_RETURN (EVENT::*)(ARGS...)> _funcMap;
         EVENT_RETURN (EVENT::*_empty) (ARGS...) = nullptr; // Dummy used when returning references
 
     public:
@@ -207,7 +207,7 @@ namespace WB
 #endif
         }
 
-        bool Has(FUNC_KEY key) const override
+        bool Has(KEY key) const override
         {
             return _funcMap.find(key) != _funcMap.end();
         }
@@ -217,7 +217,7 @@ namespace WB
             return _funcMap.size();
         }
 
-        void Add(FUNC_KEY key, EVENT_RETURN (EVENT::*func)(ARGS...)) override
+        void Add(KEY key, EVENT_RETURN (EVENT::*func)(ARGS...)) override
         {
             if (Has(key))
             {
@@ -232,7 +232,7 @@ namespace WB
 #endif
         }
 
-        EVENT_RETURN (EVENT::*Remove(FUNC_KEY key))(ARGS...) override
+        EVENT_RETURN (EVENT::*Remove(KEY key))(ARGS...) override
         {
             if (!Has(key))
             {
@@ -250,7 +250,7 @@ namespace WB
             return func; // Return the function pointer
         }
 
-        EVENT_RETURN (EVENT::*Get(FUNC_KEY key))(ARGS...) override
+        EVENT_RETURN (EVENT::*Get(KEY key))(ARGS...) override
         {
             if (!Has(key))
             {
@@ -270,7 +270,7 @@ namespace WB
             return _funcMap[key]; // Return the function pointer
         }
 
-        void Set(FUNC_KEY key, EVENT_RETURN (EVENT::*func)(ARGS...)) override
+        void Set(KEY key, EVENT_RETURN (EVENT::*func)(ARGS...)) override
         {
             if (!Has(key))
             {
