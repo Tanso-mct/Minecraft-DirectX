@@ -1,6 +1,6 @@
 ﻿<mxfile host="65bd71144e">
     <diagram id="xg7Zm7eELP54IDoRXFyy" name="Container">
-        <mxGraphModel dx="1247" dy="946" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="1162" dy="864" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -176,15 +176,18 @@
         </mxGraphModel>
     </diagram>
     <diagram id="p0GQEZzJlw7Ffiy6QQpv" name="Event">
-        <mxGraphModel dx="2047" dy="1346" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="3871" dy="2320" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
                 <mxCell id="36h07kwaAYkI58cTQvK0-3" style="edgeStyle=elbowEdgeStyle;shape=connector;rounded=0;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;endArrow=block;endFill=1;" parent="1" source="0YVRy96lzFO5BKSFyvtj-1" target="0YVRy96lzFO5BKSFyvtj-17" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
+                <mxCell id="iL1R2h-n205llrpQah8b-3" style="edgeStyle=elbowEdgeStyle;shape=connector;rounded=0;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;endArrow=diamond;endFill=0;" edge="1" parent="1" source="0YVRy96lzFO5BKSFyvtj-1" target="7YwjODK1LZCOkDSZIfXr-4">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
                 <mxCell id="0YVRy96lzFO5BKSFyvtj-1" value="template&amp;lt;KEY, EVENT&amp;gt;IEventInstTable" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;" parent="1" vertex="1">
-                    <mxGeometry x="120" y="-80" width="280" height="164" as="geometry"/>
+                    <mxGeometry x="160" y="-80" width="280" height="164" as="geometry"/>
                 </mxCell>
                 <mxCell id="0YVRy96lzFO5BKSFyvtj-2" value="-" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;" parent="0YVRy96lzFO5BKSFyvtj-1" vertex="1">
                     <mxGeometry y="26" width="280" height="26" as="geometry"/>
@@ -204,8 +207,11 @@
                 <mxCell id="36h07kwaAYkI58cTQvK0-9" value="+ Set(KEY, unique_ptr&amp;lt;EVENT&amp;gt;) : void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;" parent="0YVRy96lzFO5BKSFyvtj-1" vertex="1">
                     <mxGeometry y="138" width="280" height="26" as="geometry"/>
                 </mxCell>
+                <mxCell id="iL1R2h-n205llrpQah8b-4" style="edgeStyle=elbowEdgeStyle;shape=connector;rounded=0;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;endArrow=diamond;endFill=0;" edge="1" parent="1" source="0YVRy96lzFO5BKSFyvtj-5" target="7w6QyafuTWkXQgCeqneS-1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
                 <mxCell id="0YVRy96lzFO5BKSFyvtj-5" value="IEvent" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;" parent="1" vertex="1">
-                    <mxGeometry x="120" y="-200" width="160" height="86" as="geometry"/>
+                    <mxGeometry x="120" y="440" width="160" height="86" as="geometry"/>
                 </mxCell>
                 <mxCell id="0YVRy96lzFO5BKSFyvtj-6" value="-" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;" parent="0YVRy96lzFO5BKSFyvtj-5" vertex="1">
                     <mxGeometry y="26" width="160" height="26" as="geometry"/>
@@ -219,8 +225,11 @@
                 <mxCell id="36h07kwaAYkI58cTQvK0-4" style="edgeStyle=elbowEdgeStyle;shape=connector;rounded=0;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;endArrow=block;endFill=1;" parent="1" source="0YVRy96lzFO5BKSFyvtj-9" target="0YVRy96lzFO5BKSFyvtj-17" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
+                <mxCell id="iL1R2h-n205llrpQah8b-2" style="edgeStyle=elbowEdgeStyle;shape=connector;rounded=0;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;endArrow=diamond;endFill=0;" edge="1" parent="1" source="0YVRy96lzFO5BKSFyvtj-9" target="7YwjODK1LZCOkDSZIfXr-4">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
                 <mxCell id="0YVRy96lzFO5BKSFyvtj-9" value="template&amp;lt;KEY, EVENT, ARGS&amp;gt; IEventFuncTable" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;" parent="1" vertex="1">
-                    <mxGeometry x="120" y="240" width="320" height="194" as="geometry"/>
+                    <mxGeometry x="120" y="560" width="320" height="164" as="geometry"/>
                 </mxCell>
                 <mxCell id="0YVRy96lzFO5BKSFyvtj-10" value="-" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;" parent="0YVRy96lzFO5BKSFyvtj-9" vertex="1">
                     <mxGeometry y="26" width="320" height="26" as="geometry"/>
@@ -240,11 +249,8 @@
                 <mxCell id="36h07kwaAYkI58cTQvK0-12" value="+ Set(KEY key,&amp;nbsp;void (EVENT::*func)(ARGS...)) : void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;" parent="0YVRy96lzFO5BKSFyvtj-9" vertex="1">
                     <mxGeometry y="138" width="320" height="26" as="geometry"/>
                 </mxCell>
-                <mxCell id="7YwjODK1LZCOkDSZIfXr-3" value="Text" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;" parent="0YVRy96lzFO5BKSFyvtj-9" vertex="1">
-                    <mxGeometry y="164" width="320" height="30" as="geometry"/>
-                </mxCell>
                 <mxCell id="0YVRy96lzFO5BKSFyvtj-13" value="template &amp;lt;typename EVENT_KEY, typename EVENT, typename FUNC_KEY, typename... ARGS&amp;gt; IEventInvoker" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;" parent="1" vertex="1">
-                    <mxGeometry x="120" y="-360" width="680" height="112" as="geometry"/>
+                    <mxGeometry x="480" y="-40" width="680" height="112" as="geometry"/>
                 </mxCell>
                 <mxCell id="0YVRy96lzFO5BKSFyvtj-14" value="-" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;" parent="0YVRy96lzFO5BKSFyvtj-13" vertex="1">
                     <mxGeometry y="26" width="680" height="26" as="geometry"/>
@@ -280,7 +286,7 @@
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="7w6QyafuTWkXQgCeqneS-1" value="template&amp;lt;KEY, EVENT&amp;gt; EventInstTable" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;" parent="1" vertex="1">
-                    <mxGeometry x="480" y="-80" width="320" height="268" as="geometry"/>
+                    <mxGeometry x="120" y="120" width="320" height="268" as="geometry"/>
                 </mxCell>
                 <mxCell id="7w6QyafuTWkXQgCeqneS-2" value="- unordered_map&amp;lt;KEY, unique_ptr&amp;lt;EVENT&amp;gt;&amp;gt; _eventMap" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;" parent="7w6QyafuTWkXQgCeqneS-1" vertex="1">
                     <mxGeometry y="26" width="320" height="26" as="geometry"/>
@@ -316,7 +322,7 @@
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="7w6QyafuTWkXQgCeqneS-21" value="template&amp;lt;KEY, EVENT, ARGS&amp;gt; EventFuncTable" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;" parent="1" vertex="1">
-                    <mxGeometry x="480" y="240" width="440" height="268" as="geometry"/>
+                    <mxGeometry x="120" y="760" width="440" height="268" as="geometry"/>
                 </mxCell>
                 <mxCell id="7w6QyafuTWkXQgCeqneS-22" value="- unordered_map&amp;lt;KEY, void (EVENT::*)(ARGS...)&amp;gt; _funcMap" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;" parent="7w6QyafuTWkXQgCeqneS-21" vertex="1">
                     <mxGeometry y="26" width="440" height="26" as="geometry"/>
@@ -352,7 +358,7 @@
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="7YwjODK1LZCOkDSZIfXr-4" value="template &amp;lt;typename EVENT_KEY, typename EVENT, typename FUNC_KEY, typename... ARGS&amp;gt; IEventInvoker" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;" parent="1" vertex="1">
-                    <mxGeometry x="840" y="-360" width="680" height="138" as="geometry"/>
+                    <mxGeometry x="480" y="120" width="680" height="138" as="geometry"/>
                 </mxCell>
                 <mxCell id="7YwjODK1LZCOkDSZIfXr-5" value="- unique_ptr&amp;lt;IEventInstTable&amp;lt;EVENT_KEY, EVENT&amp;gt;&amp;gt;&amp;amp; _instTable" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;" parent="7YwjODK1LZCOkDSZIfXr-4" vertex="1">
                     <mxGeometry y="26" width="680" height="26" as="geometry"/>
