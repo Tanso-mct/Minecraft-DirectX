@@ -6,6 +6,13 @@ namespace WB
 {
     using EVENT_RETURN = void;
 
+    class IEvent
+    {
+    public:
+        virtual ~IEvent() = default;
+        virtual bool IsDestroying() = 0;
+    };
+
     template <typename KEY>
     class IEventTable
     {

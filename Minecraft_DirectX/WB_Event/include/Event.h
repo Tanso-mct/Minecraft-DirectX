@@ -374,6 +374,20 @@ namespace WB
 
             // Call the function on the event instance
             (event.get()->*func)(args...);
+
+            {
+                WB::IEvent* iEvent = static_cast<WB::IEvent*>(event.get());
+                if (iEvent->IsDestroying())
+                {
+                    event = nullptr; // Set the event instance to null
+                    _instTable->Remove(eventKey); // Remove the event instance from the table
+
+#ifndef NDEBUG
+                    WBEvent::ConsoleLog()->Log({"EventInvoker Invoke : Event instance is destroyed"});
+#endif
+                }
+                
+            }
         }
 
         

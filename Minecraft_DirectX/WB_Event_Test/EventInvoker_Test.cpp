@@ -79,3 +79,45 @@ TEST(EventInvoker, Invoke)
     // Invoke function
     eventInvoker->Invoke(eventKey, funcKey, 7, 3.14f);
 }
+
+TEST(EventInvoker, InvokeWithDestroy)
+{
+    // Create instance table
+    std::unique_ptr<WB::IEventInstTable<int, DummyEventWithID>> eventInstTable 
+    = std::make_unique<WB::EventInstTable<int, DummyEventWithID>>();
+
+    // Keys
+    int eventKey = 1;
+    bool funcKey = true;
+
+    // Event instance id
+    int eventInstId = 1;
+
+    // Add instance to table
+    eventInstTable->Add(eventKey, std::make_unique<DummyEventWithID>(eventInstId));
+    EXPECT_EQ(eventInstTable->GetSize(), 1);
+
+    // Set null instance. If event invoked, it will crash.
+    // eventInstTable->Set(eventKey, nullptr);
+
+    // Create function table
+    std::unique_ptr<WB::IEventFuncTable<bool, DummyEventWithID>> eventFuncTable 
+    = std::make_unique<WB::EventFuncTable<bool, DummyEventWithID>>();
+
+    // Add function to table
+    eventFuncTable->Add(funcKey, &DummyEventWithID::Destroy);
+    EXPECT_EQ(eventFuncTable->GetSize(), 1);
+
+    // Set function to null. If event invoked, it will crash.
+    // eventFuncTable->Set(funcKey, nullptr);
+
+    // Create invoker
+    std::unique_ptr<WB::IEventInvoker<int, DummyEventWithID, bool>> eventInvoker
+    = std::make_unique<WB::EventInvoker<int, DummyEventWithID, bool>>();
+
+    // Set tables
+    eventInvoker->SetTables(std::move(eventInstTable), std::move(eventFuncTable));
+
+    // Invoke function
+    eventInvoker->Invoke(eventKey, funcKey);
+}
